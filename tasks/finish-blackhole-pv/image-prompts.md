@@ -72,3 +72,20 @@ No cursor.
 Avoid text overflowing outside cards.
 Keep the left ranked headline rows clean and readable for animation overlays.
 ```
+
+## 2026-05-11 update: font-safe mockups
+
+### Shared rule
+
+gpt-image-2 mockups should provide layout, materials, photos, cards, shadows, and information density. Do not rely on generated images for readable Japanese copy. Any Japanese text that the viewer must read should be rendered in Remotion with `FONTS.japanese` / Axis Std.
+
+### S08 News updated prompt intent
+
+- Make the right side the dominant news feature area.
+- Keep four right-side headline lanes visually prominent but blank enough for Remotion overlay.
+- Avoid readable fake Japanese in the prominent lanes.
+- Remotion overlays the actual negative headlines in Axis Std, then the BH absorbs those right-side headlines.
+
+### Render quality note
+
+The previous 60fps MP4 was only around 8MB for 63 seconds at 1920x1080, so visual softness is likely compression-related rather than fps-related. Use Studio for review and `npm run render:pv60:high` for the next high-quality MP4 export.

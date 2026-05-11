@@ -569,3 +569,45 @@ npm run studio:pv
 - 36秒付近は S08 News。削除ではなく、まず再構成で分かりやすくする。
 - S11「全てを、吸い込め。」は大きく変えない。
 - 参考 X 動画はこの環境から直接確認できていないため、厳密に寄せるには動画ファイルかスクリーンショットが必要。
+
+## 2026-05-11 追加調整計画: 画質 / フォント / S08 / S09
+
+### 方針
+
+- 書き出し前に Remotion Studio のブラウザレビューで確認する。
+- 画質問題は fps ではなく圧縮設定として扱う。通常レビューは Studio、最終 MP4 は高品質書き出しコマンドを使う。
+- 動画内で読ませる日本語は Axis Std に統一する。
+- gpt-image-2 のモック画像には読ませたい日本語テキストを極力入れず、見出し・コピーは Remotion overlay で載せる。
+- S08 は右側の目立つニュース見出しを吸う。
+- S09 は吸う対象数を増やし、BH が段階的に大きくなって最後は画面全体を覆う。
+
+### 変更予定ファイル
+
+- `scripts/generate-pv-mockups.sh`
+  - S08 用プロンプトを右側 feature headline lane 中心に更新する。
+  - ベース画像側は日本語の可読見出しを避け、Remotion overlay 用の余白を明示する。
+- `src/compositions/blackhole-pv/scenes/S08News.tsx`
+  - 左ランキング吸収から、右側の headline stack 吸収へ変更する。
+  - 右側に Axis Std の見出しを overlay し、BH が右から左または斜めに近づいて見出しを消す。
+  - 背景は gpt-image-2 生成画像を維持しつつ、読みテキストは Remotion 側に寄せる。
+- `src/compositions/blackhole-pv/scenes/S09GameGrowth.tsx`
+  - target を増やす: text, chip, image, notification, banner, comment, video, card, page, full screen noise。
+  - 各 target が中央 BH に吸い込まれる動線を作る。
+  - 終盤で BH サイズを 1920x1080 を覆う規模まで拡大する。
+  - 指定コピー `画面に映ってる情報を全て吸い込んでブラックホールをどんどん大きくしよう！` を Axis Std で入れる。
+- `package.json`
+  - 最終確認用に高品質 MP4 書き出し script を追加する。通常レビューは Studio のまま。
+- `tasks/finish-blackhole-pv/image-prompts.md`
+  - 最新の画像生成方針を追記する。
+- `tasks/lessons.md`
+  - 今回の修正パターンを追記する。
+
+### Todo
+
+- [x] S08/S09 の実装を更新する。
+- [x] S08 用 gpt-image-2 プロンプトを更新し、ベース画像を再生成する。
+- [x] 高品質レンダー用 script を追加する。
+- [x] typecheck を通す。
+- [x] S08/S09 の still を 60fps composition から出して確認する。
+- [x] Remotion Studio を localhost で起動し、ブラウザレビューできる状態にする。
+- [ ] 変更を commit / push する。

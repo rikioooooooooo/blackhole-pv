@@ -287,3 +287,24 @@ The finished state should satisfy:
 - Representative stills from every scene render without missing asset errors.
 - A final render command for `BlackHolePV` completes successfully.
 - Remotion Studio can be opened locally for playback.
+
+## 2026-05-11 feedback research: quality, fonts, S08, S09
+
+ユーザー指摘:
+
+- 前回の MP4 は画質が悪い。fps が原因か確認したい。
+- フォントは変えないでほしい。
+- gpt-image-2 で作るモック側のフォントも動画に合わせたい。
+- S08 News は右側の目立つ見出しを吸って消す構図にしたい。
+- S09 GameGrowth は色々なものを吸って BH がどんどん大きくなり、最後は画面全体に広がる形にしたい。
+- S09 に `画面に映ってる情報を全て吸い込んでブラックホールをどんどん大きくしよう！` を入れたい。
+- 書き出し前にブラウザレビューでよい。
+
+調査結果:
+
+- `out/blackhole-pv-60fps.mp4` は約 8.2MB。1920x1080 / 60fps / 63秒としては小さいため、画質問題は fps よりエンコード圧縮の影響が大きい可能性が高い。
+- `BlackHolePV60` は `src/compositions/blackhole-pv/timing.tsx` により 30fps 基準の内部 frame 値へ変換しており、速度維持の方針は継続できる。
+- フォント指定は `FONTS.japanese = 'Axis Std'`。動画内の日本語テキストは Remotion 側で Axis Std を使うのが最も制御しやすい。
+- gpt-image-2 のベース画像内に読ませたい日本語テキストを入れるとフォント不一致や文字崩れが起きやすい。ベース画像は「文字欄・カード・写真・UI密度」に留め、読ませたい見出しやコピーは Remotion で Axis Std overlay にするのが安全。
+- S08 現状は左カラムのランキング行を吸っている。ユーザーの指摘どおり、生成ベース画像の右側 feature/headline 領域の方が目立つため、右側 headline stack を Remotion overlay にして BH がそこを吸う構図へ変える。
+- S09 現状は TEXT/IMAGE/BANNER/VIDEO/PAGE の 5 target。最後の BH サイズは画面全体には届かず、吸う対象の種類も少ない。小さなUI片を増やし、後半で背景ごと飲み込むスケールへ変更する。
