@@ -53,25 +53,85 @@ type Target = {
 	src?: string;
 };
 
+const objectAssets = [
+	{label: "テキスト断片", file: "text-lines", width: 300, height: 190},
+	{label: "写真", file: "photo-thumb", width: 210, height: 224},
+	{label: "通知", file: "notification-toast", width: 300, height: 130},
+	{label: "コメント", file: "comment-row", width: 312, height: 132},
+	{label: "バナー", file: "banner-ad", width: 316, height: 176},
+	{label: "動画", file: "video-card", width: 296, height: 220},
+	{label: "チャート", file: "chart-widget", width: 312, height: 176},
+	{label: "ポップアップ", file: "popup-modal", width: 220, height: 264},
+	{label: "検索結果", file: "search-result", width: 316, height: 138},
+	{label: "画像グリッド", file: "image-grid-piece", width: 216, height: 216},
+	{label: "吹き出し", file: "message-bubble", width: 312, height: 144},
+	{label: "価格カード", file: "price-card", width: 208, height: 276},
+	{label: "ハート", file: "sticker-heart", width: 178, height: 168},
+	{label: "警告", file: "sticker-warning", width: 190, height: 176},
+	{label: "星", file: "sticker-star", width: 210, height: 122},
+	{label: "タグ", file: "hashtag-chip", width: 216, height: 102},
+	{label: "Cookie", file: "cookie-consent", width: 292, height: 178},
+	{label: "DL", file: "download-toast", width: 286, height: 132},
+	{label: "タブ", file: "browser-tab", width: 248, height: 96},
+	{label: "保存", file: "bookmark-card", width: 218, height: 240},
+	{label: "アバター", file: "avatar-cluster", width: 194, height: 116},
+	{label: "リアクション", file: "emoji-reactions", width: 230, height: 112},
+	{label: "地図", file: "map-pin-card", width: 238, height: 210},
+	{label: "音楽", file: "music-player", width: 280, height: 150},
+	{label: "投票", file: "poll-widget", width: 260, height: 192},
+	{label: "予定", file: "calendar-reminder", width: 248, height: 184},
+	{label: "ファイル", file: "file-preview", width: 210, height: 250},
+	{label: "コード", file: "code-snippet", width: 286, height: 174},
+	{label: "広告", file: "ad-card-small", width: 230, height: 210},
+	{label: "ニュース", file: "news-headline-strip", width: 340, height: 132},
+	{label: "検索候補", file: "search-suggestion", width: 300, height: 118},
+	{label: "買い物", file: "shopping-chip", width: 240, height: 172},
+	{label: "ログイン", file: "login-prompt", width: 236, height: 230},
+	{label: "プライバシー", file: "privacy-popup", width: 256, height: 228},
+	{label: "ツールチップ", file: "tooltip-bubble", width: 230, height: 110},
+	{label: "メニュー", file: "floating-menu", width: 210, height: 256},
+	{label: "行", file: "table-row", width: 326, height: 102},
+	{label: "スコア", file: "score-widget", width: 230, height: 206},
+	{label: "天気", file: "weather-chip", width: 238, height: 128},
+	{label: "スレッド", file: "thread-stack", width: 292, height: 198},
+	{label: "サムネ", file: "thumbnail-caption", width: 260, height: 218},
+	{label: "反応", file: "reaction-pop", width: 220, height: 170},
+	{label: "カルーセル", file: "mini-carousel", width: 284, height: 198},
+	{label: "フォーム", file: "form-fields", width: 240, height: 240},
+	{label: "ランキング", file: "rank-list", width: 286, height: 210},
+	{label: "アラート", file: "alert-banner", width: 318, height: 138},
+	{label: "プロフィール", file: "profile-card", width: 232, height: 232},
+	{label: "共有", file: "share-sheet", width: 252, height: 174},
+];
+
+const getObjectPosition = (index: number, width: number, height: number) => {
+	const angle = -2.55 + index * 1.72;
+	const ring = 360 + (index % 4) * 90 + Math.floor(index / 16) * 54;
+	const centerX = 960 + Math.cos(angle) * ring;
+	const centerY = 498 + Math.sin(angle) * ring * 0.74;
+	return {
+		left: Math.max(54, Math.min(1866 - width, centerX - width / 2)),
+		top: Math.max(48, Math.min(884 - height, centerY - height / 2)),
+	};
+};
+
 const targets: Target[] = [
-	{kind: "generated", label: "テキスト断片", src: "mockups/generated/s09-objects/text-lines.png", start: 6, left: 146, top: 118, width: 308, height: 196, rotate: -5, boost: 0.034},
-	{kind: "generated", label: "写真サムネ", src: "mockups/generated/s09-objects/photo-thumb.png", start: 12, left: 544, top: 78, width: 236, height: 242, rotate: 4, boost: 0.04},
-	{kind: "generated", label: "通知", src: "mockups/generated/s09-objects/notification-toast.png", start: 18, left: 830, top: 92, width: 278, height: 126, rotate: -2, boost: 0.034},
-	{kind: "generated", label: "コメント", src: "mockups/generated/s09-objects/comment-row.png", start: 24, left: 1268, top: 112, width: 294, height: 132, rotate: 3, boost: 0.034},
-	{kind: "generated", label: "バナー", src: "mockups/generated/s09-objects/banner-ad.png", start: 30, left: 1514, top: 246, width: 304, height: 178, rotate: -4, boost: 0.042},
-	{kind: "generated", label: "動画", src: "mockups/generated/s09-objects/video-card.png", start: 36, left: 108, top: 392, width: 308, height: 232, rotate: 3, boost: 0.046},
-	{kind: "generated", label: "チャート", src: "mockups/generated/s09-objects/chart-widget.png", start: 42, left: 470, top: 348, width: 312, height: 178, rotate: -3, boost: 0.04},
-	{kind: "generated", label: "ポップアップ", src: "mockups/generated/s09-objects/popup-modal.png", start: 48, left: 1282, top: 404, width: 236, height: 274, rotate: -2, boost: 0.045},
-	{kind: "generated", label: "検索結果", src: "mockups/generated/s09-objects/search-result.png", start: 54, left: 1546, top: 534, width: 316, height: 142, rotate: 4, boost: 0.034},
-	{kind: "generated", label: "画像グリッド", src: "mockups/generated/s09-objects/image-grid-piece.png", start: 62, left: 164, top: 704, width: 232, height: 232, rotate: -3, boost: 0.038},
-	{kind: "generated", label: "吹き出し", src: "mockups/generated/s09-objects/message-bubble.png", start: 70, left: 484, top: 678, width: 312, height: 150, rotate: 5, boost: 0.034},
-	{kind: "generated", label: "価格カード", src: "mockups/generated/s09-objects/price-card.png", start: 78, left: 1112, top: 704, width: 214, height: 284, rotate: -5, boost: 0.042},
-	{kind: "generated", label: "通知2", src: "mockups/generated/s09-objects/notification-toast.png", start: 86, left: 1456, top: 754, width: 286, height: 130, rotate: 3, boost: 0.032},
-	{kind: "generated", label: "テキスト2", src: "mockups/generated/s09-objects/text-lines.png", start: 94, left: 870, top: 246, width: 250, height: 162, rotate: 3, boost: 0.032},
-	{kind: "generated", label: "写真2", src: "mockups/generated/s09-objects/photo-thumb.png", start: 102, left: 742, top: 514, width: 214, height: 220, rotate: -5, boost: 0.036},
-	{kind: "generated", label: "コメント2", src: "mockups/generated/s09-objects/comment-row.png", start: 110, left: 1016, top: 494, width: 260, height: 118, rotate: 4, boost: 0.032},
-	{kind: "generated", label: "バナー2", src: "mockups/generated/s09-objects/banner-ad.png", start: 124, left: 738, top: 292, width: 424, height: 246, rotate: 0, boost: 0.09},
-	{kind: "noise", label: "画面のノイズ全部", start: 158, left: 0, top: 0, width: 1920, height: 1080, rotate: 0, boost: 0.24},
+	...objectAssets.map((asset, index) => {
+		const position = getObjectPosition(index, asset.width, asset.height);
+		return {
+			kind: "generated" as const,
+			label: asset.label,
+			src: `mockups/generated/s09-objects/${asset.file}.png`,
+			start: Math.round(4 + index * 3.08),
+			left: position.left,
+			top: position.top,
+			width: asset.width,
+			height: asset.height,
+			rotate: ((index * 7) % 13) - 6,
+			boost: 0.021 + (index % 5) * 0.002,
+		};
+	}),
+	{kind: "noise", label: "画面のノイズ全部", start: 166, left: 0, top: 0, width: 1920, height: 1080, rotate: 0, boost: 0.2},
 ];
 
 const absorbProgress = (frame: number, start: number, duration = 14) => {

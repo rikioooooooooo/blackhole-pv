@@ -679,7 +679,7 @@ npm run studio:pv
 - [x] `npm run typecheck` を通す。
 - [x] S08/S09 のスクショ contact sheet を作って確認する。
 - [x] Studio を再起動する。
-- [ ] commit / push する。
+- [x] commit / push する。
 
 ### Review
 
@@ -708,11 +708,42 @@ npm run studio:pv
 - [x] `npm run typecheck` を通す。
 - [x] S08/S09 の contact sheet を再作成して確認する。
 - [x] Studio を再起動する。
-- [ ] commit / push する。
+- [x] commit / push する。
 
 ### Review
 
 - S08 は `tasks/finish-blackhole-pv/frame-review/latest/s08-contact.png` で、ニュース画像つきの行と見出しの関係を確認した。
 - S09 は `tasks/finish-blackhole-pv/frame-review/latest/s09-contact.png` で、単体オブジェクトが複数吸われる構成を確認した。
 - S09 生成素材一覧は `tasks/finish-blackhole-pv/generated-prompts/s09-object-assets-contact.png`。
+- Remotion Studio を `http://localhost:3001` で再起動した。
+
+## 2026-05-11 S06ズーム / S08帯 / S09大量オブジェクト修正
+
+### 方針
+
+- S06 はコード上の通知シーン。BHを大きく見せ、カメラがBHを追いながら通知を消している見え方にする。
+- S08 はユーザー提供スクショの通り、文字の後ろの帯が文字幅より右へ伸びる問題を直す。
+- S09 は既存12素材に36素材を追加し、合計48個の単体オブジェクトを最後まで吸い込みながらBHが大きくなる構成にする。
+- S09の追加画像生成は `generate-batch --concurrency 4` で並列実行する。
+
+### Todo
+
+- [x] S05を触りかけた変更を戻し、対象をS06へ修正する。
+- [x] S06へカメラズーム/追従レイヤーを追加する。
+- [x] S08の帯を文字幅に合わせ、右側の余った生成画像プレースホルダー線を白で消す。
+- [x] S09追加36素材のgpt-image-2生成プロンプトを作る。
+- [x] S09追加36素材を並列生成する。
+- [x] S09追加36素材を透過PNG化し、透明余白をトリミングする。
+- [x] S09を合計48個の単体オブジェクト配置へ差し替える。
+- [x] `npm run typecheck` を通す。
+- [x] S06/S08/S09 の contact sheet を作って確認する。
+- [x] Studio を再起動する。
+- [ ] commit / push する。
+
+### Review
+
+- S06確認シート: `tasks/finish-blackhole-pv/frame-review/latest/s06-contact.png`。
+- S08確認シート: `tasks/finish-blackhole-pv/frame-review/latest/s08-contact.png`。
+- S09確認シート: `tasks/finish-blackhole-pv/frame-review/latest/s09-contact.png`。
+- S09生成素材一覧: `tasks/finish-blackhole-pv/generated-prompts/s09-object-assets-contact.png`。
 - Remotion Studio を `http://localhost:3001` で再起動した。

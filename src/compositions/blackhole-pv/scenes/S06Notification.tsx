@@ -810,6 +810,20 @@ export const S06Notification: React.FC = () => {
 
 	const entryScale = Math.max(0, Math.min(1.1, bhEnterRaw));
 	const bhScale = entryScale + absorbPulse;
+	const cameraScale = interpolate(frame, [0, 22, 42, 164, 180], [1, 1.08, 2.22, 2.34, 2.08], {
+		extrapolateLeft: "clamp",
+		extrapolateRight: "clamp",
+		easing: easeInOutSmooth,
+	});
+	const cameraFollow = interpolate(frame, [12, 38], [0, 1], {
+		extrapolateLeft: "clamp",
+		extrapolateRight: "clamp",
+		easing: easeOutSoft,
+	});
+	const cameraTargetX = 960;
+	const cameraTargetY = 486;
+	const cameraX = (cameraTargetX - bhX * cameraScale) * cameraFollow;
+	const cameraY = (cameraTargetY - bhY * cameraScale) * cameraFollow;
 
 	return (
 		<AbsoluteFill
@@ -829,14 +843,25 @@ export const S06Notification: React.FC = () => {
 				style={{
 					position: "absolute",
 					inset: 0,
-					backgroundImage:
-						"radial-gradient(circle at 12% 18%, rgba(10,5,8,0.035) 0 1px, transparent 1.6px), radial-gradient(circle at 72% 64%, rgba(10,5,8,0.026) 0 1px, transparent 1.8px)",
-					backgroundSize: "38px 38px, 54px 54px",
-					opacity: 0.62,
-					pointerEvents: "none",
-					zIndex: 0,
+					width: VIDEO_WIDTH,
+					height: VIDEO_HEIGHT,
+					transform: `translate(${cameraX}px, ${cameraY}px) scale(${cameraScale})`,
+					transformOrigin: "0 0",
+					willChange: "transform",
 				}}
-			/>
+			>
+				<div
+					style={{
+						position: "absolute",
+						inset: 0,
+						backgroundImage:
+							"radial-gradient(circle at 12% 18%, rgba(10,5,8,0.035) 0 1px, transparent 1.6px), radial-gradient(circle at 72% 64%, rgba(10,5,8,0.026) 0 1px, transparent 1.8px)",
+						backgroundSize: "38px 38px, 54px 54px",
+						opacity: 0.62,
+						pointerEvents: "none",
+						zIndex: 0,
+					}}
+				/>
 
 				<Img
 					src={staticFile("mockups/generated/work-browser-notifications.png")}
@@ -850,27 +875,28 @@ export const S06Notification: React.FC = () => {
 					}}
 				/>
 
-			{notifications.map((item, index) => (
-				<NotificationCard
-					key={`${item.app}-${index}`}
-					item={item}
-					index={index}
-					frame={frame}
-					fps={fps}
-					bhX={bhX}
-					bhY={bhY}
-					cardW={cardW}
-					cardH={cardH}
-				/>
-			))}
+				{notifications.map((item, index) => (
+					<NotificationCard
+						key={`${item.app}-${index}`}
+						item={item}
+						index={index}
+						frame={frame}
+						fps={fps}
+						bhX={bhX}
+						bhY={bhY}
+						cardW={cardW}
+						cardH={cardH}
+					/>
+				))}
 
-			<BlackHoleCursor
-				x={bhX}
-				y={bhY}
-				scale={bhScale}
-				opacity={bhOpacity}
-				frame={frame}
-			/>
+				<BlackHoleCursor
+					x={bhX}
+					y={bhY}
+					scale={bhScale}
+					opacity={bhOpacity}
+					frame={frame}
+				/>
+			</div>
 
 			<div
 				style={{
