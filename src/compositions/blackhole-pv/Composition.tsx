@@ -13,7 +13,7 @@ import S10Mother from "./scenes/S10Mother";
 import S11Climax from "./scenes/S11Climax";
 import S12Outro from "./scenes/S12Outro";
 
-export const BLACK_HOLE_PV_FPS = 60;
+export const BLACK_HOLE_PV_FPS = 30;
 
 const secondsToFrames = (seconds: number) => seconds * BLACK_HOLE_PV_FPS;
 

@@ -53,8 +53,16 @@ const messages = [
 		width: 560,
 	},
 	{
+		text: "無理しすぎてない？",
+		width: 430,
+	},
+	{
 		text: "今日もあたたかくして寝てね。",
 		width: 620,
+	},
+	{
+		text: "いつでも味方だからね。",
+		width: 520,
 	},
 ];
 
@@ -67,10 +75,10 @@ const MessageBubble: React.FC<{
 	const {fps} = useVideoConfig();
 
 	const appear = spring({
-		frame: frame - (18 + index * 18),
+		frame: frame - (14 + index * 13),
 		fps,
 		config: bubbleSpring,
-		durationInFrames: 34,
+		durationInFrames: 28,
 	});
 
 	const opacity = interpolate(appear, [0, 1], [0, 1], {
@@ -93,8 +101,8 @@ const MessageBubble: React.FC<{
 			style={{
 				width,
 				maxWidth: "100%",
-				marginBottom: 22,
-				marginLeft: index === 1 ? 34 : index === 2 ? 12 : 0,
+				marginBottom: 14,
+				marginLeft: 0,
 				opacity,
 				transform: `translateY(${y}px) scale(${scale})`,
 				transformOrigin: "left center",
@@ -106,11 +114,11 @@ const MessageBubble: React.FC<{
 					background: lineGreen,
 					color: "#FFFFFF",
 					borderRadius: 18,
-					padding: "18px 24px 20px",
+					padding: "14px 22px 16px",
 					fontFamily: jpFont,
-					fontSize: 30,
+					fontSize: 27,
 					fontWeight: 800,
-					lineHeight: 1.42,
+					lineHeight: 1.35,
 					letterSpacing: -0.45,
 					whiteSpace: "normal",
 					boxShadow: "0 12px 28px rgba(49, 38, 24, 0.12)",
@@ -299,7 +307,7 @@ export const S10Mother: React.FC = () => {
 		}
 	);
 
-	const groupWidth = Math.min(800, width * 0.58);
+	const groupWidth = Math.min(820, width * 0.58);
 
 	return (
 		<AbsoluteFill
@@ -323,10 +331,13 @@ export const S10Mother: React.FC = () => {
 				style={{
 					position: "absolute",
 					left: width * 0.4,
-					top: height * 0.43,
+					top: height * 0.45,
 					width: groupWidth,
 					transform: "translate(-50%, -50%)",
 					zIndex: 6,
+					display: "flex",
+					flexDirection: "column",
+					alignItems: "flex-start",
 				}}
 			>
 				{messages.map((message, index) => {

@@ -2,8 +2,10 @@ import React from "react";
 import {
 	AbsoluteFill,
 	Easing,
+	Img,
 	interpolate,
 	spring,
+	staticFile,
 	useCurrentFrame,
 	useVideoConfig,
 } from "remotion";
@@ -16,6 +18,7 @@ type NotificationItem = {
 	title: string;
 	body: string;
 	tone: string;
+	icon: string;
 	x: number;
 	y: number;
 	start: number;
@@ -84,8 +87,9 @@ const notifications: NotificationItem[] = [
 		title: "チームチャット",
 		body: "お前のせいで全部止まってる",
 		tone: "#6E56CF",
-		x: 0.366,
-		y: 0.143,
+		icon: "mockups/slack-channel-icon.png",
+		x: 0.666,
+		y: 0.118,
 		start: 8,
 		absorb: 34,
 	},
@@ -94,8 +98,9 @@ const notifications: NotificationItem[] = [
 		title: "上司からのメール",
 		body: "使えない。もう来なくていい",
 		tone: "#FF7A3D",
-		x: 0.366,
-		y: 0.293,
+		icon: "mockups/notification-icon-mail.png",
+		x: 0.666,
+		y: 0.256,
 		start: 14,
 		absorb: 63,
 	},
@@ -104,8 +109,9 @@ const notifications: NotificationItem[] = [
 		title: "刺激の強い見出し",
 		body: "あなた一人のせいで大損害",
 		tone: "#E54888",
-		x: 0.366,
-		y: 0.443,
+		icon: "mockups/notification-icon-alert.png",
+		x: 0.666,
+		y: 0.394,
 		start: 23,
 		absorb: 91,
 	},
@@ -114,8 +120,9 @@ const notifications: NotificationItem[] = [
 		title: "人事通知",
 		body: "クビにしてやる、覚悟しろ",
 		tone: "#0091FF",
-		x: 0.366,
-		y: 0.593,
+		icon: "mockups/app-icon-mail.png",
+		x: 0.666,
+		y: 0.532,
 		start: 33,
 		absorb: 116,
 	},
@@ -124,8 +131,9 @@ const notifications: NotificationItem[] = [
 		title: "コメント通知",
 		body: "見てて恥ずかしい。時間の無駄",
 		tone: "#30A46C",
-		x: 0.366,
-		y: 0.743,
+		icon: "mockups/notification-icon-sns.png",
+		x: 0.666,
+		y: 0.67,
 		start: 44,
 		absorb: 142,
 	},
@@ -310,10 +318,20 @@ const NotificationCard: React.FC<{
 					width: 40,
 					height: 40,
 					borderRadius: 12,
-					background: item.tone,
+					background: "#FFFFFF",
 					boxShadow: `0 9px 18px ${item.tone}36`,
+					overflow: "hidden",
 				}}
-			/>
+			>
+				<Img
+					src={staticFile(item.icon)}
+					style={{
+						width: "100%",
+						height: "100%",
+						objectFit: "cover",
+					}}
+				/>
+			</div>
 			<div
 				style={{
 					position: "absolute",
@@ -453,6 +471,175 @@ const BlackHoleCursor: React.FC<{
 				core={BH_CORE}
 				coreColor={BH_CORE}
 			/>
+		</div>
+	);
+};
+
+const WorkBrowserMock: React.FC<{frame: number}> = ({frame}) => {
+	const activeLine = Math.floor(frame / 34) % 4;
+	const caretOpacity = interpolate(frame % 24, [0, 12, 23], [1, 0.15, 1], {
+		extrapolateLeft: "clamp",
+		extrapolateRight: "clamp",
+	});
+
+	return (
+		<div
+			style={{
+				position: "absolute",
+				left: 154,
+				top: 118,
+				width: 1130,
+				height: 748,
+				borderRadius: 34,
+				background: "rgba(255,255,255,0.96)",
+				boxShadow:
+					"0 38px 110px rgba(42, 34, 24, 0.18), inset 0 0 0 1px rgba(10,5,8,0.08)",
+				overflow: "hidden",
+				zIndex: 5,
+			}}
+		>
+			<div
+				style={{
+					position: "absolute",
+					left: 0,
+					right: 0,
+					top: 0,
+					height: 58,
+					background: "#FBF8F2",
+					borderBottom: "1px solid rgba(10,5,8,0.08)",
+				}}
+			>
+				<div style={{position: "absolute", left: 24, top: 23, display: "flex", gap: 8}}>
+					{["#FF5F56", "#FFBD2E", "#27C93F"].map((color) => (
+						<div key={color} style={{width: 12, height: 12, borderRadius: "50%", background: color}} />
+					))}
+				</div>
+				<div
+					style={{
+						position: "absolute",
+						left: 104,
+						right: 32,
+						top: 15,
+						height: 30,
+						borderRadius: 10,
+						background: "rgba(10,5,8,0.055)",
+						fontFamily: font("ui", "Inter, system-ui, sans-serif"),
+						fontSize: 13,
+						fontWeight: 760,
+						color: "rgba(29,25,20,0.52)",
+						lineHeight: "30px",
+						paddingLeft: 18,
+					}}
+				>
+					docs.google.com / project-plan
+				</div>
+			</div>
+
+			<div
+				style={{
+					position: "absolute",
+					left: 58,
+					top: 102,
+					width: 610,
+					fontFamily: JAPANESE_FONT,
+					color: "#171412",
+				}}
+			>
+				<div style={{fontSize: 34, fontWeight: 900, letterSpacing: -0.6}}>
+					作業中のドキュメント
+				</div>
+				<div style={{marginTop: 18, fontSize: 18, lineHeight: 1.75, color: "rgba(23,20,18,0.62)"}}>
+					集中して文章を書いている最中に、右側から通知が重なってくる。
+				</div>
+
+				<div style={{marginTop: 42}}>
+					{[
+						"今日の進捗をまとめる",
+						"UIの違和感をメモする",
+						"撮影する実機映像の構成を決める",
+						"最後にレンダーして確認する",
+					].map((text, index) => (
+						<div
+							key={text}
+							style={{
+								height: 54,
+								display: "flex",
+								alignItems: "center",
+								gap: 16,
+								borderBottom: "1px solid rgba(10,5,8,0.07)",
+								fontSize: 22,
+								fontWeight: 760,
+								color: index === activeLine ? "#171412" : "rgba(23,20,18,0.48)",
+							}}
+						>
+							<div
+								style={{
+									width: 22,
+									height: 22,
+									borderRadius: 7,
+									border: "2px solid rgba(10,5,8,0.18)",
+									background: index < activeLine ? "#06C755" : "transparent",
+								}}
+							/>
+							{text}
+							{index === activeLine ? (
+								<div
+									style={{
+										width: 2,
+										height: 28,
+										background: "#171412",
+										opacity: caretOpacity,
+									}}
+								/>
+							) : null}
+						</div>
+					))}
+				</div>
+			</div>
+
+			<div
+				style={{
+					position: "absolute",
+					right: 70,
+					top: 130,
+					width: 284,
+					height: 472,
+					borderRadius: 28,
+					background: "linear-gradient(180deg, #F8FAFF, #FFFFFF)",
+					boxShadow: "inset 0 0 0 1px rgba(10,5,8,0.08)",
+					overflow: "hidden",
+				}}
+			>
+				<div style={{padding: 22, fontFamily: font("ui", "Inter, system-ui, sans-serif")}}>
+					<div style={{fontSize: 13, fontWeight: 900, letterSpacing: 1.2, color: "rgba(23,20,18,0.42)"}}>
+						FOCUS MODE
+					</div>
+					<div style={{marginTop: 16, fontSize: 36, fontWeight: 900, color: "#171412"}}>
+						24:00
+					</div>
+					<div style={{marginTop: 26, height: 10, borderRadius: 999, background: "rgba(10,5,8,0.08)"}}>
+						<div
+							style={{
+								width: `${42 + Math.sin(frame * 0.03) * 8}%`,
+								height: "100%",
+								borderRadius: 999,
+								background: "#6E56CF",
+							}}
+						/>
+					</div>
+					{["Write", "Review", "Render"].map((label, index) => (
+						<div
+							key={label}
+							style={{
+								marginTop: 26,
+								height: 48,
+								borderRadius: 16,
+								background: index === 0 ? "rgba(110,86,207,0.12)" : "rgba(10,5,8,0.045)",
+							}}
+						/>
+					))}
+				</div>
+			</div>
 		</div>
 	);
 };
@@ -672,6 +859,8 @@ export const S06Notification: React.FC = () => {
 					zIndex: 0,
 				}}
 			/>
+
+			<WorkBrowserMock frame={frame} />
 
 			{notifications.map((item, index) => (
 				<NotificationCard

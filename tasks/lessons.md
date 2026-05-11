@@ -4,3 +4,4 @@
 - When the user says footage will be re-shot later, implement real-footage sections as shot-direction placeholders that explain the ideal footage. Do not block on absent assets and do not create mock footage substitutes.
 - 計画書や注釈対象のドキュメントは、ユーザーが読める言語で書く。ユーザーが日本語で進めている場合、plan.md / todo.md は日本語を基本にする。
 - このリポジトリでは、一区切りの変更が完了したら GitHub に commit / push する。push できない場合は認証などの理由を明示する。
+- 30fps 前提で組まれた Remotion シーンを単純に 60fps 化すると、内部アニメーションが倍速に見える。見た目の速度を維持したい場合は fps を戻すか、全シーンの内部フレーム値を再スケールする。
