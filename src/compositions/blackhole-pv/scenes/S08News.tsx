@@ -12,12 +12,10 @@ import {FONTS} from "../constants";
 import {usePvCurrentFrame as useCurrentFrame, usePvVideoConfig as useVideoConfig} from "../timing";
 
 const ink = "#15120f";
-const red = "#D83A34";
-const blue = "#1D5FD1";
-const FEATURE_LEFT = 1014;
-const FEATURE_TOP = 238;
-const FEATURE_WIDTH = 780;
-const FEATURE_ROW_GAP = 112;
+const FEATURE_LEFT = 808;
+const FEATURE_TOP = 280;
+const FEATURE_WIDTH = 920;
+const FEATURE_ROW_GAP = 216;
 
 const clamp = {
 	extrapolateLeft: "clamp" as const,
@@ -29,26 +27,10 @@ const easeInOutSmooth = Easing.bezier(0.65, 0, 0.35, 1);
 const easeInFast = Easing.bezier(0.7, 0, 0.84, 0);
 
 const headlines = [
-	{
-		category: "ECONOMY",
-		title: "大手IT企業、突然の大量解雇",
-		start: 18,
-	},
-	{
-		category: "CAREER",
-		title: '年収1000万でも"貧困"の現実',
-		start: 40,
-	},
-	{
-		category: "SOCIETY",
-		title: 'Z世代が"静かに辞める"本当の理由',
-		start: 62,
-	},
-	{
-		category: "AI",
-		title: "AIに奪われる仕事ランキング最新版",
-		start: 84,
-	},
+	{title: "大手IT企業、突然の大量解雇", start: 18},
+	{title: '年収1000万でも"貧困"の現実', start: 40},
+	{title: 'Z世代が"静かに辞める"本当の理由', start: 62},
+	{title: "AIに奪われる仕事ランキング最新版", start: 84},
 ];
 
 const safeRange = (values: number[]) => {
@@ -60,16 +42,16 @@ const safeRange = (values: number[]) => {
 };
 
 const getBhPosition = (frame: number) => {
-	const left = FEATURE_LEFT + 88;
-	const right = FEATURE_LEFT + FEATURE_WIDTH - 18;
+	const left = FEATURE_LEFT - 14;
+	const right = FEATURE_LEFT + FEATURE_WIDTH + 62;
 	const rows = headlines.map((item, index) => ({
 		start: item.start,
 		end: item.start + 16,
-		y: FEATURE_TOP + 54 + index * FEATURE_ROW_GAP,
+		y: FEATURE_TOP + 44 + index * FEATURE_ROW_GAP,
 	}));
 
 	if (frame < rows[0].start) {
-		const x = interpolate(frame, safeRange([0, rows[0].start]), [right + 80, right], {
+		const x = interpolate(frame, safeRange([0, rows[0].start]), [right + 72, right], {
 			...clamp,
 			easing: easeOutSoft,
 		});
@@ -112,10 +94,9 @@ const AbsorbingHeadline: React.FC<{
 	title: string;
 	frame: number;
 	start: number;
-	width: number;
-}> = ({title, frame, start, width}) => {
+}> = ({title, frame, start}) => {
 	const end = start + 16;
-	const wipe = interpolate(frame, [start, end], [0, width], {
+	const wipe = interpolate(frame, safeRange([start, end]), [0, FEATURE_WIDTH], {
 		...clamp,
 		easing: easeInFast,
 	});
@@ -129,12 +110,25 @@ const AbsorbingHeadline: React.FC<{
 			style={{
 				position: "absolute",
 				left: 0,
-				top: 19,
-				width,
-				height: 44,
+				top: 0,
+				width: FEATURE_WIDTH,
+				height: 54,
 				overflow: "hidden",
 			}}
 		>
+			<div
+				style={{
+					position: "absolute",
+					left: -8,
+					top: 2,
+					width: FEATURE_WIDTH + 16,
+					height: 42,
+					borderRadius: 6,
+					background:
+						"linear-gradient(90deg, rgba(255,255,255,0.14), rgba(255,255,255,0.08) 76%, rgba(255,255,255,0))",
+					filter: "blur(1.4px)",
+				}}
+			/>
 			<div
 				style={{
 					position: "absolute",
@@ -145,16 +139,19 @@ const AbsorbingHeadline: React.FC<{
 			>
 				<div
 					style={{
-						width,
+						width: FEATURE_WIDTH,
 						fontFamily: FONTS.japanese,
-						fontSize: 32,
+						fontSize: 34,
 						fontWeight: 900,
-						lineHeight: 1.16,
+						lineHeight: "46px",
 						letterSpacing: 0,
 						color: ink,
 						whiteSpace: "nowrap",
 						overflow: "hidden",
 						textOverflow: "ellipsis",
+						mixBlendMode: "multiply",
+						textShadow:
+							"0 1px 0 rgba(255,255,255,0.42), 0 5px 14px rgba(21,18,15,0.06)",
 					}}
 				>
 					{title}
@@ -167,7 +164,7 @@ const AbsorbingHeadline: React.FC<{
 						right: wipe - 5,
 						top: 0,
 						width: 10,
-						height: 44,
+						height: 54,
 						borderRadius: 999,
 						background:
 							"linear-gradient(180deg, rgba(107,63,160,0), rgba(107,63,160,0.38), rgba(224,122,95,0.3), rgba(107,63,160,0))",
@@ -188,13 +185,11 @@ export const S8News: React.FC = () => {
 		fps,
 		config: {mass: 0.55, damping: 8, stiffness: 180},
 	});
-	const bhOpacity = interpolate(frame, [8, 16, 112, 119], [0, 1, 1, 0], {
+	const bhOpacity = interpolate(frame, safeRange([8, 16, 112, 119]), [0, 1, 1, 0], {
 		...clamp,
 		easing: easeOutSoft,
 	});
-	const activeBoost = headlines.some(
-		(item) => frame >= item.start && frame <= item.start + 16,
-	)
+	const activeBoost = headlines.some((item) => frame >= item.start && frame <= item.start + 16)
 		? 0.07
 		: 0;
 	const bhScale = Math.max(0, bhIn) * (1 + activeBoost + Math.sin(frame * 0.1) * 0.012);
@@ -202,7 +197,7 @@ export const S8News: React.FC = () => {
 	return (
 		<AbsoluteFill style={{background: "#F5F0E8", overflow: "hidden"}}>
 			<Img
-				src={staticFile("mockups/generated/news-site-negative-headlines.png")}
+				src={staticFile("mockups/generated/news-site-headline-lanes.png")}
 				style={{
 					position: "absolute",
 					inset: 0,
@@ -211,72 +206,19 @@ export const S8News: React.FC = () => {
 					objectFit: "cover",
 				}}
 			/>
-			<div
-				style={{
-					position: "absolute",
-					left: FEATURE_LEFT - 22,
-					top: FEATURE_TOP - 18,
-					width: FEATURE_WIDTH + 28,
-					height: 470,
-					borderRadius: 18,
-					background: "rgba(250,248,243,0.72)",
-					boxShadow: "0 18px 54px rgba(18,22,32,0.08)",
-					border: "1px solid rgba(21,18,15,0.05)",
-					zIndex: 12,
-				}}
-			/>
-			<div
-				style={{
-					position: "absolute",
-					left: FEATURE_LEFT,
-					top: FEATURE_TOP + 6,
-					zIndex: 18,
-					fontFamily: FONTS.ui,
-					fontSize: 13,
-					fontWeight: 900,
-					letterSpacing: 1.7,
-					color: red,
-				}}
-			>
-				BREAKING TREND
-			</div>
 			{headlines.map((item, index) => (
 				<div
 					key={item.title}
 					style={{
 						position: "absolute",
 						left: FEATURE_LEFT,
-						top: FEATURE_TOP + 26 + index * FEATURE_ROW_GAP,
+						top: FEATURE_TOP + index * FEATURE_ROW_GAP,
 						width: FEATURE_WIDTH,
-						height: 82,
+						height: 78,
 						zIndex: 18,
-						borderRadius: 14,
-						background: "rgba(255,255,255,0.52)",
-						paddingLeft: 0,
-						borderTop:
-							index === 0 ? "none" : "1px solid rgba(21,18,15,0.12)",
 					}}
 				>
-					<div
-						style={{
-							position: "absolute",
-							left: 0,
-							top: 13,
-							fontSize: 12,
-							fontWeight: 900,
-							letterSpacing: 1.1,
-							color: index === 0 ? red : blue,
-							fontFamily: FONTS.ui,
-						}}
-					>
-						{item.category}
-					</div>
-					<AbsorbingHeadline
-						title={item.title}
-						frame={frame}
-						start={item.start}
-						width={FEATURE_WIDTH}
-					/>
+					<AbsorbingHeadline title={item.title} frame={frame} start={item.start} />
 				</div>
 			))}
 
@@ -286,15 +228,15 @@ export const S8News: React.FC = () => {
 						position: "absolute",
 						left: bh.x,
 						top: bh.y,
-						width: 132,
-						height: 132,
+						width: 116,
+						height: 116,
 						transform: `translate(-50%, -50%) scale(${bhScale})`,
 						opacity: bhOpacity,
 						zIndex: 40,
 						pointerEvents: "none",
 					}}
 				>
-					<BlackHole size={132} />
+					<BlackHole size={116} />
 				</div>
 			) : null}
 		</AbsoluteFill>

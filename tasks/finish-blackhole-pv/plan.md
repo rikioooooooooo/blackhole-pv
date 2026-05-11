@@ -634,3 +634,56 @@ npm run studio:pv
 - [x] typecheck と still 確認を行う。
 - [x] Studio を localhost:3001 でレビュー可能にする。
 - [x] commit / push する。
+
+## 2026-05-11 S08/S09 崩壊修正計画
+
+### 方針
+
+- S08 は生成画像を活かしたまま、右側ランキング見出しの位置だけを調整する。
+- S08 の文字は Axis Std の Remotion overlay で描くが、白い下地を弱めて画像に溶け込む見え方にする。
+- S09 は吸収対象を多く維持するが、下部コピー領域を安全地帯として確保する。
+- S09 の吸収対象は小型カード中心に再配置し、中央BHへ吸い込む動線を揃える。
+- S08/S09 それぞれ複数フレームの contact sheet を作って確認する。
+
+### Todo
+
+- [x] S08 の画像ベースを維持し、見出し文字が背景に馴染むように調整する。
+- [x] S09 のオブジェクト配置とコピー安全領域を作り直す。
+- [x] typecheck を通す。
+- [x] S08/S09 の密なフレーム確認用 still/contact sheet を作る。
+- [x] Studio を再起動する。
+- [x] commit / push する。
+
+### Review
+
+- `npm run typecheck` 成功。
+- S08 は `tasks/finish-blackhole-pv/frame-review/current2/s08-contact.png` で、生成画像の右側ランキング見出しレーン上に Axis Std の見出しが収まることを確認した。
+- S09 は `tasks/finish-blackhole-pv/frame-review/current2/s09-contact.png` で、下部コピーが1行化され、終盤のグレー幕が消え、BH が画面全体へ広がることを確認した。
+- Remotion Studio を `http://localhost:3001` で再起動した。
+
+## 2026-05-11 S08/S09 生成画像ベース再修正
+
+### 方針
+
+- S08 は画像とテキストの関係を改善するため、右側に空の見出しレーンがあるニュース背景を gpt-image-2 で再生成する。
+- S08 の日本語見出しは Remotion/Axis Std のまま、生成画像側の薄いプレースホルダー線に重ねる。
+- S09 は吸収対象をCSSカードではなく gpt-image-2 生成画像に置き換える。
+- S09 は11枚の生成画像素材を複数配置し、素材そのものがBHへ吸い込まれる構図にする。
+
+### Todo
+
+- [x] S08用ニュース背景を gpt-image-2 で再生成する。
+- [x] S09用吸収ターゲット画像を gpt-image-2 で大量生成する。
+- [x] S08 が新背景を使うように差し替える。
+- [x] S09 が生成画像ターゲットを吸う構成に差し替える。
+- [x] `npm run typecheck` を通す。
+- [x] S08/S09 のスクショ contact sheet を作って確認する。
+- [x] Studio を再起動する。
+- [ ] commit / push する。
+
+### Review
+
+- gpt-image-2 生成素材一覧: `tasks/finish-blackhole-pv/generated-prompts/s09-assets-contact.png`。
+- S08確認シート: `tasks/finish-blackhole-pv/frame-review/latest/s08-contact.png`。
+- S09確認シート: `tasks/finish-blackhole-pv/frame-review/latest/s09-contact.png`。
+- Remotion Studio を `http://localhost:3001` で再起動した。
