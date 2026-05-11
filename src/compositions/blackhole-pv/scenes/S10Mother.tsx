@@ -11,7 +11,7 @@ import {usePvCurrentFrame as useCurrentFrame, usePvVideoConfig as useVideoConfig
 export const S10MotherDuration = 210;
 
 const FONTS = {
-	japanese: "'AxisStd-Regular', sans-serif",
+	japanese: "'Axis Std', sans-serif",
 };
 
 const cream = "#F5F0E8";

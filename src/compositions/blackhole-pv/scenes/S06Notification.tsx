@@ -34,7 +34,7 @@ const font = (key: string, fallback: string) => {
 	return typeof value === "string" ? value : fallback;
 };
 
-const JAPANESE_FONT = font("japanese", "'AxisStd-Regular', sans-serif");
+const JAPANESE_FONT = font("japanese", "'Axis Std', sans-serif");
 const BH_CORE = "#0A0508";
 const WARM_CREAM = "#F5F0E8";
 

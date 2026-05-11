@@ -440,3 +440,25 @@ The finished state should satisfy:
 - S02/S08/S12 の still を `tasks/finish-blackhole-pv/font-check-axis-direct/` に書き出し、MP4と同じRemotion render pathで確認した。
 - `BlackHolePV60` を `out/blackhole-pv-60fps-ultra.mp4` に再書き出しした。
 - Compositionは `60fps`, `1920x1080`, `3540 frames`, `59.00 sec`。
+
+## 2026-05-11 render research: review screenshot exact font baseline
+
+追加問題:
+
+- ユーザーは「比較対象はどんな時もレビューのフォント」と明示した。
+- そのため、比較基準は過去のMP4やOTFの理論上の見え方ではなく、`C:/Users/すのはら/OneDrive/画像/Screenshots/スクリーンショット 2026-05-11 231543.png` のレビュー表示に固定する。
+
+調査:
+
+- スクショは `OneDrive/画像/Screenshots` に存在し、S02のレビュー表示だった。
+- `axis-std.otf` は `D:/ダウンロード/remotion-kosukuma/public/fonts/axis-std.otf` とリポジトリ内 `public/fonts/axis-std.otf` でSHA256が一致した。
+- OTFをそのまま `font-synthesis: none` / 全ウェイト割当で使うと、レビュー基準より細く見える。レビュー表示はRegular単体に対するブラウザ側の太字描画を含む見た目に近い。
+- WSL側のRemotion renderとWindows Chrome側のRemotion renderでは、日本語フォントのラスタライズと解決が異なる。レビューはWindows Chromeなので、最終書き出しもWindows Chrome経路で行う必要がある。
+
+対応:
+
+- `axis-std.otf` から `public/fonts/axis-std.woff2` を生成し、ブラウザが安定して読み込める形式にした。
+- `@font-face` は family `Axis Std` / `font-weight: normal` とし、既存コードの `fontWeight: 700` はレビューと同じブラウザ側の描画に任せる。
+- Windows Chrome指定の Remotion still で、WSL書き出しよりレビュー基準に近いことを確認した。
+- 同じWindows Chrome経路で `out/blackhole-pv-60fps-ultra.mp4` を再書き出しした。出力は `1920x1080`, `60fps`, `3540 frames`, `59.00 sec`, 約34.8MB。
+- MP4からframe 270を抜き出し、`tasks/finish-blackhole-pv/font-review-compare/review-vs-export-frame270-text-aligned.png` でレビュー基準と再比較した。

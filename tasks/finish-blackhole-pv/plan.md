@@ -850,3 +850,31 @@ npm run studio:pv
 - 再出力: `out/blackhole-pv-60fps-ultra.mp4`。
 - Composition確認: `BlackHolePV60`, `60fps`, `1920x1080`, `3540 frames`, `59.00 sec`。
 - 出力サイズ: 約32MB。
+
+## 2026-05-11 レビュー基準フォント完全一致の再修正
+
+### 方針
+
+- 比較対象はユーザー提供のレビュー画面スクショに固定する。
+- WSL Chromium書き出しではなく、レビューと同じWindows Chrome経路でstillとMP4を書き出す。
+- Axisは `Axis Std` familyのまま参照し、WOFF2化した同梱フォントを `font-weight: normal` として登録する。
+- Regular単体フォントを `font-synthesis: none` で細く固定せず、レビューと同じ既存 `fontWeight: 700` の見た目を再現する。
+
+### Todo
+
+- [x] レビュー基準スクショを `OneDrive/画像/Screenshots` から特定する。
+- [x] WOFF2 + `font-synthesis: none` のstillがレビューより細すぎることを比較で確認する。
+- [x] `FontLoader` を `Axis Std` + WOFF2 normal weight に変更する。
+- [x] Windows Chrome指定でS02のstillを書き出し、レビュー基準と比較する。
+- [x] `npm run typecheck` を通す。
+- [x] Windows Chrome経路で超高画質MP4を書き出す。
+- [x] 書き出し後の代表フレームをレビュー基準と再比較する。
+- [x] commit / push する。
+
+### Review
+
+- レビュー基準: `C:/Users/すのはら/OneDrive/画像/Screenshots/スクリーンショット 2026-05-11 231543.png`。
+- WSLよりWindows Chrome renderの方がレビュー基準に近い。最終MP4もこの経路で書き出す。
+- 再出力: `out/blackhole-pv-60fps-ultra.mp4`。
+- 動画から抜いたS02代表フレーム比較: `tasks/finish-blackhole-pv/font-review-compare/review-vs-export-frame270-text-aligned.png`。
+- 出力確認: `1920x1080`, `60fps`, `3540 frames`, `59.00 sec`, 約34.8MB。

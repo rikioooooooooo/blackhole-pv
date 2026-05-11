@@ -20,7 +20,7 @@ const WARM_GOLD = "#E8C16B";
 const AURORA_VIOLET = "#8E6CE8";
 
 const FONTS = {
-	japanese: "'AxisStd-Regular', sans-serif",
+	japanese: "'Axis Std', sans-serif",
 	ui: '-apple-system, BlinkMacSystemFont, "Inter", "Helvetica Neue", Arial, sans-serif',
 	display: '"Playfair Display", "Times New Roman", serif',
 };

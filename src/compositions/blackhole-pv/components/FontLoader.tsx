@@ -18,8 +18,8 @@ loadPlayfairDisplay("normal", {
  * Mount once at the top of each scene that uses Japanese text.
  */
 export const FontLoader: React.FC = () => {
-  const axisFontUrl = staticFile("fonts/axis-std.otf");
-  const [handle] = React.useState(() => delayRender("Loading axis-std.otf"));
+  const axisFontUrl = staticFile("fonts/axis-std.woff2");
+  const [handle] = React.useState(() => delayRender("Loading axis-std.woff2"));
 
   React.useEffect(() => {
     let active = true;
@@ -30,11 +30,11 @@ export const FontLoader: React.FC = () => {
     }
 
     const fontFace = new FontFace(
-      "AxisStd-Regular",
-      `url("${axisFontUrl}") format("opentype")`,
+      "Axis Std",
+      `url("${axisFontUrl}") format("woff2")`,
       {
         style: "normal",
-        weight: "100 900",
+        weight: "normal",
       },
     );
 
@@ -42,7 +42,10 @@ export const FontLoader: React.FC = () => {
       .load()
       .then((loadedFont) => {
         document.fonts.add(loadedFont);
-        return document.fonts.ready;
+        return Promise.all([
+          document.fonts.load('normal 72px "Axis Std"', "インターネットの文字を、ブラックホールで吸い込みませんか？"),
+          document.fonts.ready,
+        ]);
       })
       .then(() => {
         if (active) {
@@ -65,20 +68,17 @@ export const FontLoader: React.FC = () => {
       dangerouslySetInnerHTML={{
         __html: `
           @font-face {
-            font-family: 'AxisStd-Regular';
-            src: url('${axisFontUrl}') format('opentype');
-            font-weight: 100 900;
+            font-family: 'Axis Std';
+            src: url('${axisFontUrl}') format('woff2');
+            font-weight: normal;
             font-style: normal;
             font-display: block;
           }
 
-          * {
-            font-synthesis: none;
-          }
         `,
       }}
     />
   );
 };
 
-export const AXIS_FONT = "'AxisStd-Regular', sans-serif";
+export const AXIS_FONT = "'Axis Std', sans-serif";
