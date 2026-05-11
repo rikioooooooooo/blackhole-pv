@@ -633,4 +633,4 @@ npm run studio:pv
 - [x] S12 のコピー変更と全体拡大を行う。
 - [x] typecheck と still 確認を行う。
 - [x] Studio を localhost:3001 でレビュー可能にする。
-- [ ] commit / push する。
+- [x] commit / push する。
