@@ -610,4 +610,4 @@ npm run studio:pv
 - [x] typecheck を通す。
 - [x] S08/S09 の still を 60fps composition から出して確認する。
 - [x] Remotion Studio を localhost で起動し、ブラウザレビューできる状態にする。
-- [ ] 変更を commit / push する。
+- [x] 変更を commit / push する。
