@@ -54,23 +54,23 @@ type Target = {
 };
 
 const targets: Target[] = [
-	{kind: "generated", label: "テキスト断片", src: "mockups/generated/s09-targets/s09-text-fragments.png", start: 6, left: 112, top: 92, width: 286, height: 206, rotate: -5, boost: 0.046},
-	{kind: "generated", label: "通知束", src: "mockups/generated/s09-targets/s09-notification-stack.png", start: 12, left: 458, top: 74, width: 238, height: 238, rotate: 4, boost: 0.046},
-	{kind: "generated", label: "コメント", src: "mockups/generated/s09-targets/s09-social-comments.png", start: 18, left: 782, top: 64, width: 234, height: 178, rotate: -2, boost: 0.04},
-	{kind: "generated", label: "ニュース", src: "mockups/generated/s09-targets/s09-news-card.png", start: 24, left: 1224, top: 74, width: 306, height: 222, rotate: 3, boost: 0.052},
-	{kind: "generated", label: "広告", src: "mockups/generated/s09-targets/s09-ad-popup.png", start: 30, left: 1570, top: 104, width: 226, height: 226, rotate: -4, boost: 0.046},
-	{kind: "generated", label: "ダッシュボード", src: "mockups/generated/s09-targets/s09-dashboard-panels.png", start: 36, left: 84, top: 366, width: 288, height: 206, rotate: 3, boost: 0.05},
-	{kind: "generated", label: "画像グリッド", src: "mockups/generated/s09-targets/s09-image-grid.png", start: 42, left: 420, top: 332, width: 282, height: 224, rotate: -3, boost: 0.047},
-	{kind: "generated", label: "メール", src: "mockups/generated/s09-targets/s09-email-inbox.png", start: 48, left: 1206, top: 344, width: 292, height: 218, rotate: -2, boost: 0.05},
-	{kind: "generated", label: "動画", src: "mockups/generated/s09-targets/s09-video-tile.png", start: 54, left: 1546, top: 402, width: 288, height: 212, rotate: 4, boost: 0.052},
-	{kind: "generated", label: "ブラウザ", src: "mockups/generated/s09-targets/s09-browser-page.png", start: 62, left: 168, top: 642, width: 322, height: 228, rotate: -3, boost: 0.058},
-	{kind: "generated", label: "買い物", src: "mockups/generated/s09-targets/s09-shopping-banner.png", start: 70, left: 556, top: 666, width: 250, height: 250, rotate: 5, boost: 0.05},
-	{kind: "generated", label: "ニュース2", src: "mockups/generated/s09-targets/s09-news-card.png", start: 78, left: 1104, top: 648, width: 278, height: 204, rotate: -5, boost: 0.05},
-	{kind: "generated", label: "通知2", src: "mockups/generated/s09-targets/s09-notification-stack.png", start: 86, left: 1476, top: 690, width: 228, height: 228, rotate: 3, boost: 0.046},
-	{kind: "generated", label: "コメント2", src: "mockups/generated/s09-targets/s09-social-comments.png", start: 94, left: 880, top: 258, width: 230, height: 172, rotate: 3, boost: 0.04},
-	{kind: "generated", label: "画像2", src: "mockups/generated/s09-targets/s09-image-grid.png", start: 102, left: 684, top: 404, width: 220, height: 174, rotate: -5, boost: 0.042},
-	{kind: "generated", label: "広告2", src: "mockups/generated/s09-targets/s09-ad-popup.png", start: 110, left: 1018, top: 452, width: 210, height: 210, rotate: 4, boost: 0.044},
-	{kind: "generated", label: "ページ全体", src: "mockups/generated/s09-targets/s09-browser-page.png", start: 124, left: 610, top: 250, width: 700, height: 454, rotate: 0, boost: 0.16},
+	{kind: "generated", label: "テキスト断片", src: "mockups/generated/s09-objects/text-lines.png", start: 6, left: 146, top: 118, width: 308, height: 196, rotate: -5, boost: 0.034},
+	{kind: "generated", label: "写真サムネ", src: "mockups/generated/s09-objects/photo-thumb.png", start: 12, left: 544, top: 78, width: 236, height: 242, rotate: 4, boost: 0.04},
+	{kind: "generated", label: "通知", src: "mockups/generated/s09-objects/notification-toast.png", start: 18, left: 830, top: 92, width: 278, height: 126, rotate: -2, boost: 0.034},
+	{kind: "generated", label: "コメント", src: "mockups/generated/s09-objects/comment-row.png", start: 24, left: 1268, top: 112, width: 294, height: 132, rotate: 3, boost: 0.034},
+	{kind: "generated", label: "バナー", src: "mockups/generated/s09-objects/banner-ad.png", start: 30, left: 1514, top: 246, width: 304, height: 178, rotate: -4, boost: 0.042},
+	{kind: "generated", label: "動画", src: "mockups/generated/s09-objects/video-card.png", start: 36, left: 108, top: 392, width: 308, height: 232, rotate: 3, boost: 0.046},
+	{kind: "generated", label: "チャート", src: "mockups/generated/s09-objects/chart-widget.png", start: 42, left: 470, top: 348, width: 312, height: 178, rotate: -3, boost: 0.04},
+	{kind: "generated", label: "ポップアップ", src: "mockups/generated/s09-objects/popup-modal.png", start: 48, left: 1282, top: 404, width: 236, height: 274, rotate: -2, boost: 0.045},
+	{kind: "generated", label: "検索結果", src: "mockups/generated/s09-objects/search-result.png", start: 54, left: 1546, top: 534, width: 316, height: 142, rotate: 4, boost: 0.034},
+	{kind: "generated", label: "画像グリッド", src: "mockups/generated/s09-objects/image-grid-piece.png", start: 62, left: 164, top: 704, width: 232, height: 232, rotate: -3, boost: 0.038},
+	{kind: "generated", label: "吹き出し", src: "mockups/generated/s09-objects/message-bubble.png", start: 70, left: 484, top: 678, width: 312, height: 150, rotate: 5, boost: 0.034},
+	{kind: "generated", label: "価格カード", src: "mockups/generated/s09-objects/price-card.png", start: 78, left: 1112, top: 704, width: 214, height: 284, rotate: -5, boost: 0.042},
+	{kind: "generated", label: "通知2", src: "mockups/generated/s09-objects/notification-toast.png", start: 86, left: 1456, top: 754, width: 286, height: 130, rotate: 3, boost: 0.032},
+	{kind: "generated", label: "テキスト2", src: "mockups/generated/s09-objects/text-lines.png", start: 94, left: 870, top: 246, width: 250, height: 162, rotate: 3, boost: 0.032},
+	{kind: "generated", label: "写真2", src: "mockups/generated/s09-objects/photo-thumb.png", start: 102, left: 742, top: 514, width: 214, height: 220, rotate: -5, boost: 0.036},
+	{kind: "generated", label: "コメント2", src: "mockups/generated/s09-objects/comment-row.png", start: 110, left: 1016, top: 494, width: 260, height: 118, rotate: 4, boost: 0.032},
+	{kind: "generated", label: "バナー2", src: "mockups/generated/s09-objects/banner-ad.png", start: 124, left: 738, top: 292, width: 424, height: 246, rotate: 0, boost: 0.09},
 	{kind: "noise", label: "画面のノイズ全部", start: 158, left: 0, top: 0, width: 1920, height: 1080, rotate: 0, boost: 0.24},
 ];
 
@@ -109,27 +109,16 @@ const PillLabel: React.FC<{children: React.ReactNode; tone?: "light" | "dark"}> 
 const TargetContent: React.FC<{target: Target}> = ({target}) => {
 	if (target.src) {
 		return (
-			<div
+			<Img
+				src={staticFile(target.src)}
 				style={{
 					width: "100%",
 					height: "100%",
-					borderRadius: 22,
-					background: "rgba(255,255,255,0.78)",
-					boxShadow: "0 28px 74px rgba(36,26,18,0.18)",
-					border: "1px solid rgba(23,19,22,0.06)",
-					overflow: "hidden",
+					objectFit: "contain",
+					display: "block",
+					filter: "drop-shadow(0 24px 44px rgba(36,26,18,0.16))",
 				}}
-			>
-				<Img
-					src={staticFile(target.src)}
-					style={{
-						width: "100%",
-						height: "100%",
-						objectFit: "cover",
-						display: "block",
-					}}
-				/>
-			</div>
+			/>
 		);
 	}
 

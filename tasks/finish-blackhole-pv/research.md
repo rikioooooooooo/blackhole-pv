@@ -353,3 +353,10 @@ The finished state should satisfy:
 - S08 背景を `public/mockups/generated/news-site-headline-lanes.png` として再生成した。右側は4本の空見出しレーンがあり、Remotion の Axis Std 見出しを置きやすい構造。
 - S09 用に `public/mockups/generated/s09-targets/s09-*.png` の吸収ターゲット画像を11枚生成した。
 - S09 はCSSカード中心ではなく、生成画像素材を複数配置して中央BHへ吸い込ませる構成に変更した。
+
+追加レビュー:
+
+- S08 はニュース画像がないように見えるという指摘があった。原因は右側の主見出しレーンが文字プレースホルダー中心で、ニュース記事の画像と見出しの関係が弱かったこと。
+- S08 背景を再生成し、右側の各ニュース行にサムネイル画像を入れた。Remotion 見出しはその画像の右側へ重ねる位置に変更した。
+- S09 は「Webページを1枚単位で吸う」見え方が残っていた。`s09-targets` のページ/カード画像を削除し、`s09-objects` としてテキスト片、写真サムネ、通知、コメント、バナー、動画カード、チャート、ポップアップ、検索結果、画像グリッド、吹き出し、価格カードの単体オブジェクトを生成した。
+- `s09-objects` は gpt-image-2 でクロマキー背景として生成後、`remove_chroma_key.py` で透過PNG化し、ImageMagick の `-trim` で透明余白を詰めた。

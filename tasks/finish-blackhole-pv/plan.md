@@ -687,3 +687,32 @@ npm run studio:pv
 - S08確認シート: `tasks/finish-blackhole-pv/frame-review/latest/s08-contact.png`。
 - S09確認シート: `tasks/finish-blackhole-pv/frame-review/latest/s09-contact.png`。
 - Remotion Studio を `http://localhost:3001` で再起動した。
+
+## 2026-05-11 S08画像 / S09オブジェクト単位修正
+
+### 方針
+
+- S08 はニュース画像が見える行構成にする。右側の主ニュース行にサムネイル画像を入れ、その横に Remotion の見出しを乗せる。
+- S09 は Webページやカード全体ではなく、テキスト片・画像・通知・コメント・バナーなどの単体オブジェクトを吸う。
+- S09 の単体オブジェクトは gpt-image-2 でクロマキー背景つき生成後、透過PNG化して使う。
+- 生成素材の透明余白が大きい場合はトリミングし、画面上で素材が小さく見えないようにする。
+
+### Todo
+
+- [x] S08 のニュース背景を、右側行に画像がある構成で再生成する。
+- [x] S08 の見出し位置を画像横のテキストレーンに合わせる。
+- [x] S09 の単体オブジェクト素材を gpt-image-2 で生成する。
+- [x] S09 の単体オブジェクト素材を透過PNG化し、余白をトリミングする。
+- [x] S09 のターゲットを `s09-objects` 参照に差し替える。
+- [x] 旧 `s09-targets` のWebページ/カード系素材を削除する。
+- [x] `npm run typecheck` を通す。
+- [x] S08/S09 の contact sheet を再作成して確認する。
+- [x] Studio を再起動する。
+- [ ] commit / push する。
+
+### Review
+
+- S08 は `tasks/finish-blackhole-pv/frame-review/latest/s08-contact.png` で、ニュース画像つきの行と見出しの関係を確認した。
+- S09 は `tasks/finish-blackhole-pv/frame-review/latest/s09-contact.png` で、単体オブジェクトが複数吸われる構成を確認した。
+- S09 生成素材一覧は `tasks/finish-blackhole-pv/generated-prompts/s09-object-assets-contact.png`。
+- Remotion Studio を `http://localhost:3001` で再起動した。

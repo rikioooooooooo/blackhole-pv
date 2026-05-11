@@ -12,9 +12,9 @@ import {FONTS} from "../constants";
 import {usePvCurrentFrame as useCurrentFrame, usePvVideoConfig as useVideoConfig} from "../timing";
 
 const ink = "#15120f";
-const FEATURE_LEFT = 808;
-const FEATURE_TOP = 280;
-const FEATURE_WIDTH = 920;
+const FEATURE_LEFT = 926;
+const FEATURE_TOP = 268;
+const FEATURE_WIDTH = 820;
 const FEATURE_ROW_GAP = 216;
 
 const clamp = {
