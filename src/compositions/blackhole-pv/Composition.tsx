@@ -12,6 +12,7 @@ import S09GameGrowth from "./scenes/S09GameGrowth";
 import S10Mother from "./scenes/S10Mother";
 import S12Outro from "./scenes/S12Outro";
 import {PvTimingProvider} from "./timing";
+import {FontLoader} from "./components/FontLoader";
 
 export const BLACK_HOLE_PV_BASE_FPS = 30;
 export const BLACK_HOLE_PV_FPS = 30;
@@ -54,6 +55,7 @@ export const BlackHolePV: React.FC<BlackHolePVProps> = ({
   return (
     <PvTimingProvider frameScale={frameScale}>
       <AbsoluteFill style={{ backgroundColor: "#F5F0E8" }}>
+      <FontLoader />
       {SCENES.map((scene) => {
         const from = cursor;
         const durationInFrames = secondsToFrames(scene.seconds, outputFps);

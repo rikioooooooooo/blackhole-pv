@@ -395,3 +395,22 @@ The finished state should satisfy:
 - `BlackHolePV60` を `out/blackhole-pv-60fps-ultra.mp4` に書き出した。
 - コマンドは `npx remotion render src/index.ts BlackHolePV60 out/blackhole-pv-60fps-ultra.mp4 --crf=8 --concurrency=4`。
 - 出力は約32MB。`.gitignore` で `*.mp4` が除外されているため、GitHubには動画本体ではなく再現用の `render:pv60:ultra` scriptを追加する。
+
+## 2026-05-11 render research: font mismatch
+
+問題:
+
+- 書き出したMP4でフォントがStudio確認時と変わって見えた。
+
+原因:
+
+- `public/fonts/axis-std.otf` は存在していたが、PV全体のComposition rootで `FontLoader` が常時マウントされていなかった。
+- そのため一部シーンは `font-family: 'Axis Std'` を指定していても、書き出しChromium側でフォントが解決できず `sans-serif` fallback になっていた。
+- Studioは環境によってOS側のフォントやキャッシュが効くため、書き出しとの差が出る。
+
+対応:
+
+- `FontLoader` を `BlackHolePV` のrootにマウントした。
+- `Axis Std` は同梱OTFを `@font-face` と `FontFace` API の両方で登録し、`delayRender` / `continueRender` で読み込み完了まで待つ。
+- `Inter` と `Playfair Display` は `@remotion/google-fonts` のloaderで読み込み、英字UI/タイトルも書き出し時に固定されるようにした。
+- `FONTS.display` を実際のfont family名である `"Playfair Display"` に修正した。

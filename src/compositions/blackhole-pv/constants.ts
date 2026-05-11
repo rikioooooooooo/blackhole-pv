@@ -47,7 +47,7 @@ export const BH_LAYERS = {
 
 export const FONTS = {
   japanese: "'Axis Std', sans-serif",
-  display: "PlayfairDisplay",
+  display: '"Playfair Display", "Times New Roman", serif',
   ui: "Inter, system-ui, sans-serif",
   mono: "'SF Mono', Menlo, monospace",
 };

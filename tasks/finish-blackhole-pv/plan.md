@@ -796,3 +796,29 @@ npm run studio:pv
 - 出力: `out/blackhole-pv-60fps-ultra.mp4`。
 - サイズ: 約32MB。
 - 設定: `BlackHolePV60`, `1920x1080`, `60fps`, `h264`, `CRF 8`。
+
+## 2026-05-11 書き出しフォント修正
+
+### 方針
+
+- Studioと書き出しで同じフォントを使うため、OSインストール済みフォントには依存しない。
+- PV全体のrootで `FontLoader` を必ずマウントする。
+- Axis Std は同梱OTFを読み込み完了まで待ってからレンダーする。
+- 英字用の Inter / Playfair Display もレンダー前に読み込む。
+
+### Todo
+
+- [x] `FontLoader` を `BlackHolePV` rootへ追加する。
+- [x] `FontLoader` に Axis Std の読み込み待ちを追加する。
+- [x] Inter / Playfair Display の loader を追加する。
+- [x] `FONTS.display` を `"Playfair Display"` に修正する。
+- [x] `npm run typecheck` を通す。
+- [x] 代表stillでS02/S12のフォントを確認する。
+- [x] 超高画質MP4を再書き出しする。
+- [x] commit / push する。
+
+### Review
+
+- 確認still: `tasks/finish-blackhole-pv/font-check/s02-axis.png`。
+- 確認still: `tasks/finish-blackhole-pv/font-check/s12-outro.png`。
+- 再出力: `out/blackhole-pv-60fps-ultra.mp4`。
