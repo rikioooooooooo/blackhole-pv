@@ -1,0 +1,36 @@
+{
+  "name": "remotion-kosukuma",
+  "version": "1.0.0",
+  "description": "こすくまくん動画生成 — Remotion",
+  "private": true,
+  "scripts": {
+    "studio": "remotion studio src/index.ts",
+    "render": "remotion render src/index.ts",
+    "build": "remotion bundle src/index.ts"
+  },
+  "dependencies": {
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.6.1",
+    "@remotion/animation-utils": "^4.0.457",
+    "@remotion/bundler": "^4.0.457",
+    "@remotion/cli": "^4.0.457",
+    "@remotion/google-fonts": "^4.0.457",
+    "@remotion/layout-utils": "^4.0.457",
+    "@remotion/light-leaks": "^4.0.457",
+    "@remotion/noise": "^4.0.457",
+    "@remotion/paths": "^4.0.457",
+    "@remotion/renderer": "^4.0.457",
+    "@remotion/shapes": "^4.0.457",
+    "@remotion/transitions": "^4.0.457",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "remotion": "^4.0.457",
+    "three": "^0.184.0",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "typescript": "^5.9.3"
+  }
+}
