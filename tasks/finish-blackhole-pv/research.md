@@ -375,3 +375,23 @@ The finished state should satisfy:
 - S06は背景・通知・BHを同一カメラレイヤーに入れ、BH位置を画面中央へ寄せる `cameraScale` / `cameraX` / `cameraY` を追加した。
 - S08は各見出しに `bandWidth` を持たせ、文字幅以降の長いプレースホルダー線を白いマスクで消す構成にした。
 - S09は36素材を追加生成し、既存12素材と合わせて48素材にした。全素材を透過PNG化し、最後まで順次吸い込まれるよう `objectAssets` からターゲットを生成する実装にした。
+
+追加対応:
+
+- S06はズーム開始を4件目の通知直前へ後ろ倒しした。3件目までは通常カメラで消し、4件目以降だけカメラがBHを追う。
+- 追加レビューでS06の追従がBHに張り付きすぎて見える問題が残ったため、カメラはBH実座標を直接追わず、滑らかな補間軌道を主成分にして実BH座標を少量だけ混ぜる構成へ変更した。
+- S06のズーム到達時間を伸ばし、4件目から5件目へゆっくり視線を運ぶ Apple PV 的な慣性追従へ寄せた。
+- S08は固定pxの `bandWidth` を廃止し、見出しテキスト要素自身に背景帯を持たせた。これで文字と帯が同じレイアウト幅になり、固定値ズレを避けられる。
+- S08は右端の生成画像プレースホルダー線が残らないよう、見出しレーンのマスク幅を広げた。
+
+## 2026-05-11 render research: ultra MP4
+
+ユーザー指示:
+
+- 超高画質で書き出す。
+
+対応:
+
+- `BlackHolePV60` を `out/blackhole-pv-60fps-ultra.mp4` に書き出した。
+- コマンドは `npx remotion render src/index.ts BlackHolePV60 out/blackhole-pv-60fps-ultra.mp4 --crf=8 --concurrency=4`。
+- 出力は約32MB。`.gitignore` で `*.mp4` が除外されているため、GitHubには動画本体ではなく再現用の `render:pv60:ultra` scriptを追加する。

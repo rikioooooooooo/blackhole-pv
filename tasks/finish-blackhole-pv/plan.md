@@ -738,7 +738,7 @@ npm run studio:pv
 - [x] `npm run typecheck` を通す。
 - [x] S06/S08/S09 の contact sheet を作って確認する。
 - [x] Studio を再起動する。
-- [ ] commit / push する。
+- [x] commit / push する。
 
 ### Review
 
@@ -747,3 +747,52 @@ npm run studio:pv
 - S09確認シート: `tasks/finish-blackhole-pv/frame-review/latest/s09-contact.png`。
 - S09生成素材一覧: `tasks/finish-blackhole-pv/generated-prompts/s09-object-assets-contact.png`。
 - Remotion Studio を `http://localhost:3001` で再起動した。
+
+## 2026-05-11 S06/S08追加修正
+
+### 方針
+
+- S06は通知3件までは通常カメラ、4件目からズーム追従にする。
+- S06の追従はBHへ完全ロックせず、滑らかな補間軌道を主に使い、BHの実座標を少量だけ混ぜる。
+- S08は固定幅の帯をやめ、テキスト要素自身に背景帯を持たせる。文字と帯を同じレイアウト幅にしてズレをなくす。
+- S08は文字幅外と右端の生成画像プレースホルダー線が見えないように、見出しレーンの白マスクを広げる。
+
+### Todo
+
+- [x] S06のズーム開始を4件目の通知直前へ後ろ倒しする。
+- [x] S06のズーム到達時間を伸ばし、慣性のある追従にする。
+- [x] S08の固定幅帯を、テキスト幅に追従する inline 背景へ変更する。
+- [x] S08の見出しレーンマスクを広げ、右端の背景帯を隠す。
+- [x] `npm run typecheck` を通す。
+- [x] S06/S08 の contact sheet を再作成して確認する。
+- [x] Studio を再起動する。
+- [x] commit / push する。
+
+### Review
+
+- S06確認シート: `tasks/finish-blackhole-pv/frame-review/latest/s06-contact.png`。
+- S08確認シート: `tasks/finish-blackhole-pv/frame-review/latest/s08-contact.png`。
+- S06は4件目からズームし、滑らかな補間軌道でBHを追う形にした。
+- S08は見出し帯がテキスト自身の背景になり、右端の生成画像プレースホルダー線もマスクで隠した。
+- Remotion Studio を `http://localhost:3001` で再起動した。
+
+## 2026-05-11 超高画質書き出し
+
+### 方針
+
+- レビュー速度を維持した60fps版 `BlackHolePV60` を使う。
+- 高画質MP4として `CRF 8` で書き出す。
+- 生成MP4は `.gitignore` 対象のためGitHubには含めず、再現用scriptを `package.json` に追加する。
+
+### Todo
+
+- [x] Studioを停止してレンダー負荷を下げる。
+- [x] `out/blackhole-pv-60fps-ultra.mp4` を書き出す。
+- [x] `render:pv60:ultra` scriptを追加する。
+- [x] 変更を commit / push する。
+
+### Review
+
+- 出力: `out/blackhole-pv-60fps-ultra.mp4`。
+- サイズ: 約32MB。
+- 設定: `BlackHolePV60`, `1920x1080`, `60fps`, `h264`, `CRF 8`。

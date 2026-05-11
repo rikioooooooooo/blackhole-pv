@@ -10,6 +10,7 @@
     "render:pv": "remotion render src/index.ts BlackHolePV out/blackhole-pv.mp4",
     "render:pv60": "remotion render src/index.ts BlackHolePV60 out/blackhole-pv-60fps.mp4",
     "render:pv60:high": "remotion render src/index.ts BlackHolePV60 out/blackhole-pv-60fps-high.mp4 --crf=10",
+    "render:pv60:ultra": "remotion render src/index.ts BlackHolePV60 out/blackhole-pv-60fps-ultra.mp4 --crf=8 --concurrency=4",
     "setup:imagegen": "bash scripts/setup-imagegen.sh",
     "generate:pv-mockups": "bash scripts/generate-pv-mockups.sh",
     "build": "remotion bundle src/index.ts",

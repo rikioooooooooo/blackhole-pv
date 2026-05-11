@@ -810,20 +810,53 @@ export const S06Notification: React.FC = () => {
 
 	const entryScale = Math.max(0, Math.min(1.1, bhEnterRaw));
 	const bhScale = entryScale + absorbPulse;
-	const cameraScale = interpolate(frame, [0, 22, 42, 164, 180], [1, 1.08, 2.22, 2.34, 2.08], {
-		extrapolateLeft: "clamp",
-		extrapolateRight: "clamp",
-		easing: easeInOutSmooth,
-	});
-	const cameraFollow = interpolate(frame, [12, 38], [0, 1], {
+	const zoomStart = notifications[3].absorb - 4;
+	const cameraScale = interpolate(
+		frame,
+		frameRange(0, zoomStart, zoomStart + 36, 164, 180),
+		[1, 1, 1.56, 1.68, 1.58],
+		{
+			extrapolateLeft: "clamp",
+			extrapolateRight: "clamp",
+			easing: easeInOutSmooth,
+		},
+	);
+	const cameraFollow = interpolate(frame, frameRange(zoomStart, zoomStart + 34), [0, 1], {
 		extrapolateLeft: "clamp",
 		extrapolateRight: "clamp",
 		easing: easeOutSoft,
 	});
 	const cameraTargetX = 960;
 	const cameraTargetY = 486;
-	const cameraX = (cameraTargetX - bhX * cameraScale) * cameraFollow;
-	const cameraY = (cameraTargetY - bhY * cameraScale) * cameraFollow;
+	const smoothBhX = interpolate(
+		frame,
+		frameRange(zoomStart, notifications[3].absorb + SWEEP_FRAMES, notifications[4].absorb + SWEEP_FRAMES, 180),
+		[
+			notifications[3].x * designW + cardW * 0.48,
+			notifications[3].x * designW + cardW * 0.56,
+			notifications[4].x * designW + cardW * 0.54,
+			designW * 0.7,
+		],
+		{
+			extrapolateLeft: "clamp",
+			extrapolateRight: "clamp",
+			easing: easeInOutSmooth,
+		},
+	);
+	const smoothBhY = interpolate(
+		frame,
+		frameRange(zoomStart, notifications[3].absorb + SWEEP_FRAMES, notifications[4].absorb + 10, 180),
+		[touchYs[3] - 8, touchYs[3] + 8, touchYs[4] + 4, touchYs[4] + 24],
+		{
+			extrapolateLeft: "clamp",
+			extrapolateRight: "clamp",
+			easing: easeInOutSmooth,
+		},
+	);
+	const inertialFocusX = smoothBhX * 0.86 + bhX * 0.14;
+	const inertialFocusY = smoothBhY * 0.88 + bhY * 0.12;
+	const cameraX = (cameraTargetX - inertialFocusX * cameraScale) * cameraFollow;
+	const cameraY = (cameraTargetY - inertialFocusY * cameraScale) * cameraFollow;
 
 	return (
 		<AbsoluteFill

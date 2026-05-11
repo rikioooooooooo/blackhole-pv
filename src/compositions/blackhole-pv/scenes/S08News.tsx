@@ -14,7 +14,7 @@ import {usePvCurrentFrame as useCurrentFrame, usePvVideoConfig as useVideoConfig
 const ink = "#15120f";
 const FEATURE_LEFT = 926;
 const FEATURE_TOP = 268;
-const FEATURE_WIDTH = 820;
+const FEATURE_WIDTH = 900;
 const FEATURE_ROW_GAP = 216;
 
 const clamp = {
@@ -27,10 +27,10 @@ const easeInOutSmooth = Easing.bezier(0.65, 0, 0.35, 1);
 const easeInFast = Easing.bezier(0.7, 0, 0.84, 0);
 
 const headlines = [
-	{title: "大手IT企業、突然の大量解雇", start: 18, bandWidth: 458},
-	{title: '年収1000万でも"貧困"の現実', start: 40, bandWidth: 500},
-	{title: 'Z世代が"静かに辞める"本当の理由', start: 62, bandWidth: 560},
-	{title: "AIに奪われる仕事ランキング最新版", start: 84, bandWidth: 560},
+	{title: "大手IT企業、突然の大量解雇", start: 18},
+	{title: '年収1000万でも"貧困"の現実', start: 40},
+	{title: 'Z世代が"静かに辞める"本当の理由', start: 62},
+	{title: "AIに奪われる仕事ランキング最新版", start: 84},
 ];
 
 const safeRange = (values: number[]) => {
@@ -94,8 +94,7 @@ const AbsorbingHeadline: React.FC<{
 	title: string;
 	frame: number;
 	start: number;
-	bandWidth: number;
-}> = ({title, frame, start, bandWidth}) => {
+}> = ({title, frame, start}) => {
 	const end = start + 16;
 	const wipe = interpolate(frame, safeRange([start, end]), [0, FEATURE_WIDTH], {
 		...clamp,
@@ -120,25 +119,11 @@ const AbsorbingHeadline: React.FC<{
 			<div
 				style={{
 					position: "absolute",
-					left: Math.max(0, bandWidth + 12),
-					top: -2,
-					width: Math.max(0, FEATURE_WIDTH - bandWidth - 12),
-					height: 58,
-					background: "rgba(255,255,255,0.98)",
-					filter: "blur(0.2px)",
-				}}
-			/>
-			<div
-				style={{
-					position: "absolute",
-					left: -7,
-					top: 7,
-					width: bandWidth + 14,
-					height: 33,
-					borderRadius: 6,
-					background:
-						"linear-gradient(90deg, rgba(226,226,226,0.56), rgba(219,219,219,0.42) 86%, rgba(219,219,219,0.08))",
-					filter: "blur(0.45px)",
+					left: -10,
+					top: -10,
+					width: FEATURE_WIDTH + 34,
+					height: 72,
+					background: "#FFFFFF",
 				}}
 			/>
 			<div
@@ -151,11 +136,18 @@ const AbsorbingHeadline: React.FC<{
 			>
 				<div
 					style={{
-						width: FEATURE_WIDTH,
+						display: "inline-block",
+						width: "max-content",
+						maxWidth: FEATURE_WIDTH,
+						height: 44,
+						padding: "0 5px 0 0",
+						borderRadius: 5,
+						background:
+							"linear-gradient(90deg, rgba(225,225,225,0.72), rgba(219,219,219,0.58))",
 						fontFamily: FONTS.japanese,
 						fontSize: 34,
 						fontWeight: 900,
-						lineHeight: "46px",
+						lineHeight: "44px",
 						letterSpacing: 0,
 						color: ink,
 						whiteSpace: "nowrap",
@@ -234,7 +226,6 @@ export const S8News: React.FC = () => {
 						title={item.title}
 						frame={frame}
 						start={item.start}
-						bandWidth={item.bandWidth}
 					/>
 				</div>
 			))}
