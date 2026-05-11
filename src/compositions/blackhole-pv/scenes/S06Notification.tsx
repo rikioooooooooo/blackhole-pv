@@ -859,7 +859,17 @@ export const S06Notification: React.FC = () => {
 				}}
 			/>
 
-			<WorkBrowserMock frame={frame} />
+				<Img
+					src={staticFile("mockups/generated/work-browser-notifications.png")}
+					style={{
+						position: "absolute",
+						inset: 0,
+						width: "100%",
+						height: "100%",
+						objectFit: "cover",
+						zIndex: 4,
+					}}
+				/>
 
 			{notifications.map((item, index) => (
 				<NotificationCard

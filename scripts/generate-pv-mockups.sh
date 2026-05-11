@@ -10,10 +10,32 @@ load_env_file() {
   local file="$1"
 
   if [ -f "$file" ]; then
-    set -a
-    # shellcheck disable=SC1090
-    source "$file"
-    set +a
+    while IFS= read -r line || [ -n "$line" ]; do
+      line="${line%$'\r'}"
+
+      if [ -z "$line" ] || [[ "$line" == \#* ]]; then
+        continue
+      fi
+
+      if [[ "$line" == export\ * ]]; then
+        line="${line#export }"
+      fi
+
+      if [[ ! "$line" =~ ^[A-Za-z_][A-Za-z0-9_]*= ]]; then
+        continue
+      fi
+
+      local key="${line%%=*}"
+      local value="${line#*=}"
+
+      if [[ "$value" == \"*\" ]] && [[ "$value" == *\" ]]; then
+        value="${value:1:${#value}-2}"
+      elif [[ "$value" == \'*\' ]] && [[ "$value" == *\' ]]; then
+        value="${value:1:${#value}-2}"
+      fi
+
+      export "$key=$value"
+    done < "$file"
   fi
 }
 
@@ -37,6 +59,10 @@ fi
 if [ ! -f "$IMAGE_GEN" ]; then
   echo "image_gen.py not found: $IMAGE_GEN" >&2
   exit 1
+fi
+
+if [ -n "${OPENAI_ENV_FILE:-}" ]; then
+  load_env_file "$OPENAI_ENV_FILE"
 fi
 
 load_env_file "$ROOT_DIR/.env"

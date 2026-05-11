@@ -62,6 +62,7 @@
 - `OPENAI_API_KEY` を設定して `npm run generate:pv-mockups` を実行すると、gpt-image-2 で S06/S08 のベース画像を生成して `public/mockups/generated/` に保存する。
 - `npm run setup:imagegen` で、プロジェクト内の `.venv-imagegen` に画像生成用 Python 環境と `openai` パッケージを準備する。
 - `generate:pv-mockups` は `.env.local` / `.env` / 現在の shell / Windows ユーザー環境変数の順に `OPENAI_API_KEY` を拾う。
+- `OPENAI_ENV_FILE=/mnt/d/ダウンロード/ディスコード/.env npm run generate:pv-mockups` のように、任意の `.env` ファイルも指定できる。
 
 ## FPS 方針
 
@@ -529,14 +530,14 @@ npm run studio:pv
 - [x] S06 を「作業中ブラウザの右上に通知が来る」構図へ寄せる。
 - [x] S08 から `NewsPicks` 表記を消し、見出しのはみ出しを調整する。
 - [x] S10 の母メッセージを5件に増やし、位置を揃える。
-- [ ] gpt-image-2 で S06 の作業ブラウザ + 通知ベース画像を作る。
-- [ ] gpt-image-2 で S08 のニュースサイトベース画像を作る。
-- [ ] 生成画像を `public/mockups/generated/` に置き、Remotion で吸い込み演出だけを重ねる。
+- [x] gpt-image-2 で S06 の作業ブラウザ + 通知ベース画像を作る。
+- [x] gpt-image-2 で S08 のニュースサイトベース画像を作る。
+- [x] 生成画像を `public/mockups/generated/` に置き、Remotion で吸い込み演出だけを重ねる。
 - [x] `BlackHolePV60` を追加し、速度を維持したまま `60fps / 3780 frames` でレビューできるようにする。
 - [x] gpt-image-2 生成用の CLI スクリプト `npm run generate:pv-mockups` を追加する。
 - [x] `npm run setup:imagegen` で画像生成CLI依存をローカルにセットアップできるようにする。
-- [ ] `OPENAI_API_KEY` を設定して実際に gpt-image-2 生成を走らせる。
-- [ ] 生成済み画像を S06/S08 の背景ベースとして使い、Remotion は BH と文字消失だけを重ねる構成へ切り替える。
+- [x] `OPENAI_API_KEY` を設定して実際に gpt-image-2 生成を走らせる。
+- [x] 生成済み画像を S06/S08 の背景ベースとして使い、Remotion は BH と文字消失だけを重ねる構成へ切り替える。
 
 ## Review
 
@@ -549,6 +550,10 @@ npm run studio:pv
 - `npm run setup:imagegen` 成功。`.venv-imagegen` に `openai` パッケージ導入済み。
 - `npm run generate:pv-mockups` は `OPENAI_API_KEY` 未設定のため、画像生成前に停止することを確認済み。
 - Windows ユーザー環境変数にも `OPENAI_API_KEY` は未設定。
+- `D:\ダウンロード\ディスコード\.env` の `OPENAI_API_KEY` を使って gpt-image-2 生成成功。
+- 生成画像: `public/mockups/generated/work-browser-notifications.png`, `public/mockups/generated/news-site-negative-headlines.png`。
+- `BlackHolePV60` の S06/S08 代表フレームを `s06-generated-60fps.png` / `s08-generated-60fps.png` に出力済み。
+- S06/S08 は生成画像を背景ベースに使い、Remotion 側でBHと吸い込みテキストを重ねる構成へ切り替え済み。
 - Remotion Studio 起動成功: `http://localhost:3001`。
 - フルレンダーは未実施。今回は「一回見てみたい」ため Studio 起動までを優先。
 
