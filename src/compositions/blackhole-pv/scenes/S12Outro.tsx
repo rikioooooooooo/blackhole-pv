@@ -6,11 +6,10 @@ import {
 	interpolate,
 	spring,
 	staticFile,
-	useCurrentFrame,
-	useVideoConfig,
 } from "remotion";
 import { noise2D } from "@remotion/noise";
 import { BlackHole } from "../components/BlackHole";
+import {usePvCurrentFrame as useCurrentFrame, usePvVideoConfig as useVideoConfig} from "../timing";
 
 const CREAM = "#F5F0E8";
 const BH_CORE = "#0A0508";

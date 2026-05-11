@@ -4,10 +4,9 @@ import {
 	Easing,
 	interpolate,
 	spring,
-	useCurrentFrame,
-	useVideoConfig,
 } from "remotion";
 import {BlackHole} from "../components/BlackHole";
+import {usePvCurrentFrame as useCurrentFrame, usePvVideoConfig as useVideoConfig} from "../timing";
 
 export const S10MotherDuration = 210;
 

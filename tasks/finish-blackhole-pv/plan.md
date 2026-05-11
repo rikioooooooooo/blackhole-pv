@@ -28,6 +28,8 @@
 - 現在のプレビュー FPS: `30`
 - 尺: 約 `63秒`
 - 現在の総フレーム数: `1890`
+- レビュー用 FPS: `60`
+- レビュー用総フレーム数: `3780`
 - 最終納品 FPS: `60`
 - Remotion: `4.0.457`
 - BH コア色: `#0A0508`
@@ -56,6 +58,8 @@
 - 実機映像シーンは、黒背景の「撮影指示プレースホルダー」として実装する。
 - S06/S08 のようなモックシーンは、最終的には gpt-image-2 で作った高品質なベース画像を Remotion 上で動かす。
 - ただし現在の Codex セッションでは built-in の `image_gen` ツールが公開されていないため、今回の即時修正では CSS/既存素材で構造を整え、生成プロンプトを `tasks/finish-blackhole-pv/image-prompts.md` に残す。
+- CLI フォールバックとして `scripts/generate-pv-mockups.sh` を追加した。
+- `OPENAI_API_KEY` を設定して `npm run generate:pv-mockups` を実行すると、gpt-image-2 で S06/S08 のベース画像を生成して `public/mockups/generated/` に保存する。
 
 ## FPS 方針
 
@@ -63,6 +67,8 @@
 - 単純に `fps=60` へ変更すると、30fps 前提で書かれた各シーン内の frame 値が倍速に見える。
 - 最終的に `60fps` が必要な段階で、全シーンの内部 frame 値・duration・still 確認フレームを `2倍` に再スケールする。
 - 「速度は今のまま、フレームレートだけ60fps」が完成条件。
+- 現在は `BlackHolePV` を30fps版、`BlackHolePV60` を60fpsレビュー版として並べる。
+- `BlackHolePV60` は内部のアニメーション時間を30fps基準に変換して、速度を変えずに60fpsで再生する。
 
 ## 実機映像プレースホルダーのルール
 
@@ -524,14 +530,20 @@ npm run studio:pv
 - [ ] gpt-image-2 で S06 の作業ブラウザ + 通知ベース画像を作る。
 - [ ] gpt-image-2 で S08 のニュースサイトベース画像を作る。
 - [ ] 生成画像を `public/mockups/generated/` に置き、Remotion で吸い込み演出だけを重ねる。
-- [ ] 最終段階で速度を維持したまま `60fps / 3780 frames` に再スケールする。
+- [x] `BlackHolePV60` を追加し、速度を維持したまま `60fps / 3780 frames` でレビューできるようにする。
+- [x] gpt-image-2 生成用の CLI スクリプト `npm run generate:pv-mockups` を追加する。
+- [ ] `OPENAI_API_KEY` を設定して実際に gpt-image-2 生成を走らせる。
+- [ ] 生成済み画像を S06/S08 の背景ベースとして使い、Remotion は BH と文字消失だけを重ねる構成へ切り替える。
 
 ## Review
 
 - `npm run typecheck` 成功。
 - `npx remotion compositions src/index.ts` 成功。`BlackHolePV` は現在 `30fps` / `1890 frames` / `63.00 sec`。
+- `BlackHolePV60` は `60fps` / `3780 frames` / `63.00 sec`。
 - 代表フレーム出力成功: `s01.png`, `s02.png`, `s04.png`, `s09.png`, `s11.png`, `s12.png`。
 - 最新フィードバック確認用に `s06-notification-updated.png` / `s08-news-updated.png` を追加出力済み。
+- 60fpsレビュー確認用に `s06-notification-60fps.png` を追加出力済み。
+- `npm run generate:pv-mockups` は `OPENAI_API_KEY` 未設定のため、画像生成前に停止することを確認済み。
 - Remotion Studio 起動成功: `http://localhost:3001`。
 - フルレンダーは未実施。今回は「一回見てみたい」ため Studio 起動までを優先。
 

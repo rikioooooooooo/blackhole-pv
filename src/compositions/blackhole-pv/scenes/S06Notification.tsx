@@ -6,12 +6,11 @@ import {
 	interpolate,
 	spring,
 	staticFile,
-	useCurrentFrame,
-	useVideoConfig,
 } from "remotion";
 import {noise2D} from "@remotion/noise";
 import {FONTS, VIDEO_HEIGHT, VIDEO_WIDTH} from "../constants";
 import {BlackHole} from "../components/BlackHole";
+import {usePvCurrentFrame as useCurrentFrame, usePvVideoConfig as useVideoConfig} from "../timing";
 
 type NotificationItem = {
 	app: string;

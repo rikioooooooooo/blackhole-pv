@@ -2,11 +2,10 @@ import React from "react";
 import {
 	interpolate,
 	spring,
-	useCurrentFrame,
-	useVideoConfig,
 } from "remotion";
 import {noise2D} from "@remotion/noise";
 import {COLORS} from "../constants";
+import {usePvCurrentFrame as useCurrentFrame, usePvVideoConfig as useVideoConfig} from "../timing";
 
 export type BlackHoleProps = {
 	size?: number;

@@ -4,11 +4,10 @@ import {
 	Easing,
 	interpolate,
 	spring,
-	useCurrentFrame,
-	useVideoConfig,
 } from "remotion";
 import {BlackHole} from "../components/BlackHole";
 import {FONTS} from "../constants";
+import {usePvCurrentFrame as useCurrentFrame, usePvVideoConfig as useVideoConfig} from "../timing";
 
 const cream = "#F5F0E8";
 const ink = "#171316";

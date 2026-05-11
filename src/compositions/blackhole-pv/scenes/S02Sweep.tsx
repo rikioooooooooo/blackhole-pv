@@ -4,12 +4,11 @@ import {
 	Easing,
 	interpolate,
 	spring,
-	useCurrentFrame,
-	useVideoConfig,
 } from "remotion";
 import {noise2D} from "@remotion/noise";
 import {BlackHole} from "../components/BlackHole";
 import {COLORS, FONTS, VIDEO_HEIGHT, VIDEO_WIDTH} from "../constants";
+import {usePvCurrentFrame as useCurrentFrame, usePvVideoConfig as useVideoConfig} from "../timing";
 
 export const S1_SWEEP_DURATION = 180;
 

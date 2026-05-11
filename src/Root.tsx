@@ -5,7 +5,10 @@ import { GoodsAnnounce, type GoodsAnnounceProps } from "./compositions/GoodsAnno
 import {
   BLACK_HOLE_PV_DURATION,
   BLACK_HOLE_PV_FPS,
+  BLACK_HOLE_PV_REVIEW_DURATION,
+  BLACK_HOLE_PV_REVIEW_FPS,
   BlackHolePV,
+  BlackHolePV60,
 } from "./compositions/blackhole-pv/Composition";
 
 export const RemotionRoot: React.FC = () => {
@@ -74,6 +77,14 @@ export const RemotionRoot: React.FC = () => {
         component={BlackHolePV}
         durationInFrames={BLACK_HOLE_PV_DURATION}
         fps={BLACK_HOLE_PV_FPS}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="BlackHolePV60"
+        component={BlackHolePV60}
+        durationInFrames={BLACK_HOLE_PV_REVIEW_DURATION}
+        fps={BLACK_HOLE_PV_REVIEW_FPS}
         width={1920}
         height={1080}
       />

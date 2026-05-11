@@ -6,6 +6,8 @@ export const VIDEO_FPS = 30;
 
 export const BLACK_HOLE_PV_FPS = 30;
 export const BLACK_HOLE_PV_DURATION = 1890;
+export const BLACK_HOLE_PV_REVIEW_FPS = 60;
+export const BLACK_HOLE_PV_REVIEW_DURATION = 3780;
 
 export const COLORS = {
   bg: "#F5F0E8",

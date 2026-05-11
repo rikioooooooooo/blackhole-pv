@@ -1,6 +1,7 @@
 import React from "react";
-import { AbsoluteFill, Easing, interpolate, useCurrentFrame } from "remotion";
+import { AbsoluteFill, Easing, interpolate } from "remotion";
 import { FONTS } from "../constants";
+import {usePvCurrentFrame as useCurrentFrame} from "../timing";
 
 type ShotPlaceholderProps = {
   scene: string;

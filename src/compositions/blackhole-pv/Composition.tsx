@@ -12,47 +12,67 @@ import S09GameGrowth from "./scenes/S09GameGrowth";
 import S10Mother from "./scenes/S10Mother";
 import S11Climax from "./scenes/S11Climax";
 import S12Outro from "./scenes/S12Outro";
+import {PvTimingProvider} from "./timing";
 
+export const BLACK_HOLE_PV_BASE_FPS = 30;
 export const BLACK_HOLE_PV_FPS = 30;
+export const BLACK_HOLE_PV_REVIEW_FPS = 60;
 
-const secondsToFrames = (seconds: number) => seconds * BLACK_HOLE_PV_FPS;
+const secondsToFrames = (seconds: number, fps: number) => seconds * fps;
 
 const SCENES = [
-  { key: "S01", durationInFrames: secondsToFrames(3), component: S01ColdOpen },
-  { key: "S02", durationInFrames: secondsToFrames(6), component: S02Sweep },
-  { key: "S03", durationInFrames: secondsToFrames(6), component: S03Slack },
-  { key: "S04", durationInFrames: secondsToFrames(5), component: S04Google },
-  { key: "S05", durationInFrames: secondsToFrames(5), component: S05BeforeAfter },
-  { key: "S06", durationInFrames: secondsToFrames(4), component: S06Notification },
-  { key: "S07", durationInFrames: secondsToFrames(5), component: S07YouTube },
-  { key: "S08", durationInFrames: secondsToFrames(4), component: S08News },
-  { key: "S09", durationInFrames: secondsToFrames(6), component: S09GameGrowth },
-  { key: "S10", durationInFrames: secondsToFrames(7), component: S10Mother },
-  { key: "S11", durationInFrames: secondsToFrames(6), component: S11Climax },
-  { key: "S12", durationInFrames: secondsToFrames(6), component: S12Outro },
+  { key: "S01", seconds: 3, component: S01ColdOpen },
+  { key: "S02", seconds: 6, component: S02Sweep },
+  { key: "S03", seconds: 6, component: S03Slack },
+  { key: "S04", seconds: 5, component: S04Google },
+  { key: "S05", seconds: 5, component: S05BeforeAfter },
+  { key: "S06", seconds: 4, component: S06Notification },
+  { key: "S07", seconds: 5, component: S07YouTube },
+  { key: "S08", seconds: 4, component: S08News },
+  { key: "S09", seconds: 6, component: S09GameGrowth },
+  { key: "S10", seconds: 7, component: S10Mother },
+  { key: "S11", seconds: 6, component: S11Climax },
+  { key: "S12", seconds: 6, component: S12Outro },
 ];
 
-export const BLACK_HOLE_PV_DURATION = SCENES.reduce(
-  (total, scene) => total + scene.durationInFrames,
+const getDuration = (fps: number) => SCENES.reduce(
+  (total, scene) => total + secondsToFrames(scene.seconds, fps),
   0
 );
 
-export const BlackHolePV: React.FC = () => {
+export const BLACK_HOLE_PV_DURATION = getDuration(BLACK_HOLE_PV_FPS);
+export const BLACK_HOLE_PV_REVIEW_DURATION = getDuration(BLACK_HOLE_PV_REVIEW_FPS);
+
+type BlackHolePVProps = {
+  outputFps?: number;
+};
+
+export const BlackHolePV: React.FC<BlackHolePVProps> = ({
+  outputFps = BLACK_HOLE_PV_FPS,
+}) => {
   let cursor = 0;
+  const frameScale = outputFps / BLACK_HOLE_PV_BASE_FPS;
 
   return (
-    <AbsoluteFill style={{ backgroundColor: "#F5F0E8" }}>
+    <PvTimingProvider frameScale={frameScale}>
+      <AbsoluteFill style={{ backgroundColor: "#F5F0E8" }}>
       {SCENES.map((scene) => {
         const from = cursor;
-        cursor += scene.durationInFrames;
+        const durationInFrames = secondsToFrames(scene.seconds, outputFps);
+        cursor += durationInFrames;
         const Component = scene.component;
 
         return (
-          <Sequence key={scene.key} from={from} durationInFrames={scene.durationInFrames}>
+          <Sequence key={scene.key} from={from} durationInFrames={durationInFrames}>
             <Component />
           </Sequence>
         );
       })}
-    </AbsoluteFill>
+      </AbsoluteFill>
+    </PvTimingProvider>
   );
 };
+
+export const BlackHolePV60: React.FC = () => (
+  <BlackHolePV outputFps={BLACK_HOLE_PV_REVIEW_FPS} />
+);

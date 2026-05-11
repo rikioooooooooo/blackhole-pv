@@ -1,6 +1,8 @@
 node_modules/
 dist/
 .remotion/
+.venv-imagegen/
+tmp/
 *.mp4
 *.mov
 public/video/

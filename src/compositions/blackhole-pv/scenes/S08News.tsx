@@ -6,11 +6,10 @@ import {
 	interpolate,
 	spring,
 	staticFile,
-	useCurrentFrame,
-	useVideoConfig,
 } from "remotion";
 import {BlackHole} from "../components/BlackHole";
 import {FONTS, VIDEO_HEIGHT, VIDEO_WIDTH} from "../constants";
+import {usePvCurrentFrame as useCurrentFrame, usePvVideoConfig as useVideoConfig} from "../timing";
 
 const cream = "#F5F0E8";
 const ink = "#15120f";

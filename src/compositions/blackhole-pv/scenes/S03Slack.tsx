@@ -4,11 +4,10 @@ import {
 	Easing,
 	interpolate,
 	spring,
-	useCurrentFrame,
-	useVideoConfig,
 } from "remotion";
 import {BlackHole} from "../components/BlackHole";
 import {COLORS, FONTS, SPRING, VIDEO_HEIGHT, VIDEO_WIDTH} from "../constants";
+import {usePvCurrentFrame as useCurrentFrame, usePvVideoConfig as useVideoConfig} from "../timing";
 
 const DURATION = 180;
 
