@@ -554,6 +554,9 @@ npm run studio:pv
 - 生成画像: `public/mockups/generated/work-browser-notifications.png`, `public/mockups/generated/news-site-negative-headlines.png`。
 - `BlackHolePV60` の S06/S08 代表フレームを `s06-generated-60fps.png` / `s08-generated-60fps.png` に出力済み。
 - S06/S08 は生成画像を背景ベースに使い、Remotion 側でBHと吸い込みテキストを重ねる構成へ切り替え済み。
+- S06 は再生成で背景側の通知カードを消し、右側を Remotion 通知用の余白にした。
+- S08 は再生成で暗めのニュースサイトにし、左ランキング欄を Remotion 見出し用の空行にした。
+- S08 の吸い込み前寄り確認用に `s08-generated-start-60fps.png` を追加出力済み。
 - Remotion Studio 起動成功: `http://localhost:3001`。
 - フルレンダーは未実施。今回は「一回見てみたい」ため Studio 起動までを優先。
 

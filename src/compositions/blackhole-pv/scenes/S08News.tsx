@@ -14,7 +14,10 @@ import {usePvCurrentFrame as useCurrentFrame, usePvVideoConfig as useVideoConfig
 const ink = "#15120f";
 const red = "#D83A34";
 const blue = "#1D5FD1";
-const HEADLINE_WIDTH = 390;
+const HEADLINE_WIDTH = 410;
+const HEADLINE_LEFT = 212;
+const ROW_TOP = 344;
+const ROW_GAP = 88;
 
 const clamp = {
 	extrapolateLeft: "clamp" as const,
@@ -58,11 +61,11 @@ const safeRange = (values: number[]) => {
 
 const getBhPosition = (frame: number) => {
 	const left = 218;
-	const right = 612;
+	const right = 630;
 	const rows = headlines.map((item, index) => ({
 		start: item.start,
 		end: item.start + 16,
-		y: 360 + index * 68,
+		y: 370 + index * ROW_GAP,
 	}));
 
 	if (frame < rows[0].start) {
@@ -213,8 +216,8 @@ export const S8News: React.FC = () => {
 					key={item.title}
 					style={{
 						position: "absolute",
-						left: 212,
-						top: 334 + index * 68,
+						left: HEADLINE_LEFT,
+						top: ROW_TOP + index * ROW_GAP,
 						width: HEADLINE_WIDTH,
 						height: 54,
 						zIndex: 18,
