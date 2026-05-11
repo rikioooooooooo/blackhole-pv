@@ -5,8 +5,11 @@
   "private": true,
   "scripts": {
     "studio": "remotion studio src/index.ts",
+    "studio:pv": "remotion studio src/index.ts",
     "render": "remotion render src/index.ts",
-    "build": "remotion bundle src/index.ts"
+    "render:pv": "remotion render src/index.ts BlackHolePV out/blackhole-pv.mp4",
+    "build": "remotion bundle src/index.ts",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.7",

@@ -125,8 +125,8 @@ const S1Sweep: React.FC = () => {
 	const textTop = H / 2 - titleHeight / 2 - 18;
 
 	const bhSize = 112;
-	const bhStartX = Math.max(112, textLeft - 116);
-	const bhEndX = Math.min(W - 112, textLeft + textWidth + 116);
+	const bhStartX = Math.min(W - 112, textLeft + textWidth + 116);
+	const bhEndX = Math.max(112, textLeft - 116);
 	const bhBaseY = H / 2 + 5;
 
 	const sweepStartFrame = 56;
@@ -223,10 +223,10 @@ const S1Sweep: React.FC = () => {
 	const bhScale = clamp(holeAppear, 0, 1.08) * absorbPulse * bhBreath;
 
 	const bhRadius = bhSize / 2;
-	const wipeInset = clamp(bhX - textLeft + bhRadius, 0, textWidth);
+	const wipeInset = clamp(textLeft + textWidth - (bhX - bhRadius), 0, textWidth);
 
 	const charW = fontSize * 1.0;
-	const titleClipLeft = Math.floor(wipeInset / charW) * charW;
+	const titleClipRight = Math.floor(wipeInset / charW) * charW;
 
 	const captionOpacityRaw = interpolate(
 		frame,
@@ -290,7 +290,7 @@ const S1Sweep: React.FC = () => {
 					width: textWidth,
 					height: titleHeight,
 					zIndex: 4,
-					clipPath: `inset(0 0 0 ${titleClipLeft}px)`,
+					clipPath: `inset(0 ${titleClipRight}px 0 0)`,
 					overflow: "hidden",
 				}}
 				aria-label={mainText}
@@ -362,7 +362,7 @@ const S1Sweep: React.FC = () => {
 						width: textWidth,
 						textAlign: "center",
 						fontFamily: uiFont,
-						fontSize: 36,
+						fontSize: 34,
 						lineHeight: 1.45,
 						fontWeight: 800,
 						letterSpacing: "0.01em",
@@ -372,6 +372,7 @@ const S1Sweep: React.FC = () => {
 						zIndex: 5,
 					}}
 				>
+					見たくない言葉だけ、遊ぶように消していく。
 				</div>
 			)}
 

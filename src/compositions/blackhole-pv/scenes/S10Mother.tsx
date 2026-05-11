@@ -2,10 +2,8 @@ import React from "react";
 import {
 	AbsoluteFill,
 	Easing,
-	Img,
 	interpolate,
 	spring,
-	staticFile,
 	useCurrentFrame,
 	useVideoConfig,
 } from "remotion";
@@ -59,14 +57,6 @@ const messages = [
 		width: 620,
 	},
 ];
-
-const RemotionAssetImports: React.FC = () => {
-	if (Img && staticFile) {
-		return null;
-	}
-
-	return null;
-};
 
 const MessageBubble: React.FC<{
 	text: string;
@@ -319,8 +309,6 @@ export const S10Mother: React.FC = () => {
 				fontFamily: jpFont,
 			}}
 		>
-			<RemotionAssetImports />
-
 			<AbsoluteFill
 				style={{
 					background: `

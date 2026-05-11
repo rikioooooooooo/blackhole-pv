@@ -2,7 +2,11 @@ import { Composition } from "remotion";
 import { TextOverlay, type TextOverlayProps } from "./compositions/TextOverlay";
 import { KosukumaCard, type KosukumaCardProps } from "./compositions/KosukumaCard";
 import { GoodsAnnounce, type GoodsAnnounceProps } from "./compositions/GoodsAnnounce";
-import { BlackHolePV } from "./compositions/blackhole-pv/Composition";
+import {
+  BLACK_HOLE_PV_DURATION,
+  BLACK_HOLE_PV_FPS,
+  BlackHolePV,
+} from "./compositions/blackhole-pv/Composition";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -68,8 +72,8 @@ export const RemotionRoot: React.FC = () => {
       <Composition
         id="BlackHolePV"
         component={BlackHolePV}
-        durationInFrames={2730}
-        fps={30}
+        durationInFrames={BLACK_HOLE_PV_DURATION}
+        fps={BLACK_HOLE_PV_FPS}
         width={1920}
         height={1080}
       />

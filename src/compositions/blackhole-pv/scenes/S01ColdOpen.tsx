@@ -1,21 +1,13 @@
 import React from "react";
-import { AbsoluteFill, useCurrentFrame, interpolate } from "remotion";
+import { ShotPlaceholder } from "../components/ShotPlaceholder";
 
 export const S01ColdOpen: React.FC = () => {
-  const frame = useCurrentFrame();
-  const fadeIn = interpolate(frame, [0, 15], [0, 1], { extrapolateRight: "clamp" });
-  const fadeOut = interpolate(frame, [70, 90], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   return (
-    <AbsoluteFill style={{ backgroundColor: "#0A0508", justifyContent: "center", alignItems: "center", opacity: fadeIn * fadeOut }}>
-      <div style={{ textAlign: "center", color: "#E8E2D9", fontFamily: "'Axis Std', system-ui, sans-serif" }}>
-        <div style={{ fontSize: 28, fontWeight: 700, lineHeight: 1.6, marginBottom: 16, whiteSpace: "pre-line" }}>
-          {"実機映像：ブラウザ上でBHが\n文字を吸い込んでいる様子"}
-        </div>
-        <div style={{ fontSize: 13, color: "#9B958D", letterSpacing: "0.1em" }}>
-          {"\u5B9F\u6A5F\u6620\u50CF\u3092\u5DEE\u3057\u66FF\u3048\u4E88\u5B9A"}
-        </div>
-      </div>
-    </AbsoluteFill>
+    <ShotPlaceholder
+      scene="S01"
+      title="Cold Open: いきなり吸い込む"
+      direction={"ブラウザ上の文章にBHカーソルを重ね、\n説明なしで文字が吸い込まれて消える瞬間から始める。"}
+    />
   );
 };
 export default S01ColdOpen;

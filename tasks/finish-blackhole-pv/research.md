@@ -1,0 +1,289 @@
+# Research: finish BlackHolePV
+
+## Goal
+
+ローカルで Remotion Studio を見ながら、`BlackHolePV` をプレースホルダーなしの完成版まで持っていく。
+
+## Repository state
+
+- Repository: `rikioooooooooo/blackhole-pv`
+- Branch: `main`
+- Latest commit at clone time: `93b7a17 feat: Black Hole Chrome Extension PV - Remotion project`
+- Main composition entry: `src/Root.tsx`
+- PV body: `src/compositions/blackhole-pv/Composition.tsx`
+- Main composition id: `BlackHolePV`
+- Size/fps: `1920x1080`, `30fps`
+
+## Commands run
+
+```bash
+npm install
+npx tsc --noEmit
+npx remotion compositions src/index.ts
+npx remotion still src/index.ts BlackHolePV tasks/finish-blackhole-pv/baseline-frames/frame-0000.png --frame=0
+npx remotion still src/index.ts BlackHolePV tasks/finish-blackhole-pv/baseline-frames/frame-0120.png --frame=120
+npx remotion still src/index.ts BlackHolePV tasks/finish-blackhole-pv/baseline-frames/frame-0480.png --frame=480
+npx remotion still src/index.ts BlackHolePV tasks/finish-blackhole-pv/baseline-frames/frame-0660.png --frame=660
+npx remotion still src/index.ts BlackHolePV tasks/finish-blackhole-pv/baseline-frames/frame-0930.png --frame=930
+npx remotion still src/index.ts BlackHolePV tasks/finish-blackhole-pv/baseline-frames/frame-1200.png --frame=1200
+npx remotion still src/index.ts BlackHolePV tasks/finish-blackhole-pv/baseline-frames/frame-1600.png --frame=1600
+```
+
+## Baseline results
+
+### Dependency install
+
+`npm install` completed successfully.
+
+New generated file:
+
+- `package-lock.json`
+
+### Typecheck
+
+`npx tsc --noEmit` fails with one baseline error:
+
+```text
+src/compositions/blackhole-pv/scenes/S10Mother.tsx(64,13): error TS2774: This condition will always return true since this function is always defined. Did you mean to call it instead?
+```
+
+The cause is `if (Img && staticFile)` in `RemotionAssetImports`; both imports are functions and always truthy.
+
+### Remotion composition discovery
+
+`npx remotion compositions src/index.ts` succeeds and lists:
+
+- `TextOverlay`: 1080x1920, 1890 frames
+- `KosukumaCard`: 1080x1080, 180 frames
+- `GoodsAnnounce`: 1080x1920, 240 frames
+- `BlackHolePV`: 1920x1080, 2730 frames
+
+### Still frame rendering
+
+Successful baseline stills:
+
+- `tasks/finish-blackhole-pv/baseline-frames/frame-0000.png`
+- `tasks/finish-blackhole-pv/baseline-frames/frame-0120.png`
+- `tasks/finish-blackhole-pv/baseline-frames/frame-0480.png`
+- `tasks/finish-blackhole-pv/baseline-frames/frame-0660.png`
+- `tasks/finish-blackhole-pv/baseline-frames/frame-0930.png`
+- `tasks/finish-blackhole-pv/baseline-frames/frame-1200.png`
+
+Rendering frame `1600` fails because `S11Climax` references a missing asset:
+
+```text
+public/video/demo-new.mp4 could not be found
+```
+
+There is no `public/video` directory and no `.mp4`, `.mov`, or `.webm` file in `public`.
+
+## Current composition timing
+
+`src/Root.tsx` declares `BlackHolePV` as `2730` frames, but `src/compositions/blackhole-pv/Composition.tsx` schedules only `1890` frames:
+
+| Scene | Start | Duration | End |
+| --- | ---: | ---: | ---: |
+| S01ColdOpen | 0 | 90 | 90 |
+| S02Sweep | 90 | 180 | 270 |
+| S03Slack | 270 | 180 | 450 |
+| S04Google | 450 | 150 | 600 |
+| S05BeforeAfter | 600 | 150 | 750 |
+| S06Notification | 750 | 120 | 870 |
+| S07YouTube | 870 | 150 | 1020 |
+| S08News | 1020 | 120 | 1140 |
+| S09GameGrowth | 1140 | 180 | 1320 |
+| S10Mother | 1320 | 210 | 1530 |
+| S11Climax | 1530 | 180 | 1710 |
+| S12Outro | 1710 | 180 | 1890 |
+
+This leaves frames `1890..2729` as an unintended blank tail, about 28 seconds at 30fps.
+
+## Scene status
+
+### S01ColdOpen
+
+File: `src/compositions/blackhole-pv/scenes/S01ColdOpen.tsx`
+
+Status: placeholder only.
+
+Visible text says:
+
+- `実機映像：ブラウザ上でBHが...`
+- `実機映像を差し替え予定`
+
+Baseline frame `0` is effectively blank because the scene starts faded out.
+
+### S02Sweep
+
+File: `src/compositions/blackhole-pv/scenes/S02Sweep.tsx`
+
+Status: implemented.
+
+It renders the main concept line and a black hole sweeping across the text. The baseline frame `120` looks like an actual finished scene. One issue: there is an empty caption `<div>` block, so a planned follow-up caption appears to have been removed or never filled.
+
+### S03Slack
+
+File: `src/compositions/blackhole-pv/scenes/S03Slack.tsx`
+
+Status: substantially implemented.
+
+It builds a Slack-like UI directly in React/CSS and animates black-hole absorption across lines. The export name is `S2Slack`, while the file default export is imported as `S03Slack`; this works but naming is inconsistent.
+
+### S04Google
+
+File: `src/compositions/blackhole-pv/scenes/S04Google.tsx`
+
+Status: placeholder only.
+
+Baseline frame `480` shows a black card with placeholder copy.
+
+There is a reusable `GoogleSearchMockup` component in `src/compositions/blackhole-pv/components/mockups/GoogleSearchMockup.tsx`, and `public/mockups/google-pawahara.png` exists.
+
+### S05BeforeAfter
+
+File: `src/compositions/blackhole-pv/scenes/S05BeforeAfter.tsx`
+
+Status: placeholder only.
+
+Baseline frame `660` shows a black card with placeholder copy.
+
+The repo has components that can support this scene:
+
+- `BrowserWindow`
+- `TextAbsorption`
+- `SweepingBlackHole`
+- `CleanStateTransition`
+- `PostAbsorptionGlow`
+
+### S06Notification
+
+File: `src/compositions/blackhole-pv/scenes/S06Notification.tsx`
+
+Status: implemented.
+
+It builds a notification stack and animates absorption. It uses direct CSS and the shared `BlackHole`.
+
+### S07YouTube
+
+File: `src/compositions/blackhole-pv/scenes/S07YouTube.tsx`
+
+Status: placeholder only.
+
+Baseline frame `930` shows placeholder copy.
+
+There is a reusable `YouTubeMockup` component and public assets:
+
+- `public/mockups/youtube-shachiku.png`
+- `public/mockups/yt-thumb-1.png`
+- `public/mockups/yt-thumb-2.png`
+- `public/mockups/yt-thumb-3.png`
+
+### S08News
+
+File: `src/compositions/blackhole-pv/scenes/S08News.tsx`
+
+Status: implemented.
+
+It builds a NewsPicks-like interface and animates headline absorption. It imports `Img`, `staticFile`, and defines `suckEase`, but intentionally voids them, so those imports are unused by design. The scene name export is `S8News`, while the file default export is imported as `S08News`; this works but naming is inconsistent.
+
+### S09GameGrowth
+
+File: `src/compositions/blackhole-pv/scenes/S09GameGrowth.tsx`
+
+Status: placeholder only.
+
+Baseline frame `1200` shows placeholder copy.
+
+Potential implementation can use:
+
+- `BlackHole`
+- `ParticleField`
+- mockup assets for text, app icons, banners, thumbnails
+- existing absorption/physics components
+
+### S10Mother
+
+File: `src/compositions/blackhole-pv/scenes/S10Mother.tsx`
+
+Status: visually implemented, but typecheck blocker exists.
+
+The scene shows LINE-like warm messages and a black hole that refuses to absorb them. The `RemotionAssetImports` helper causes the only current TypeScript error.
+
+### S11Climax
+
+File: `src/compositions/blackhole-pv/scenes/S11Climax.tsx`
+
+Status: implemented in structure, but render-blocked.
+
+It references:
+
+```tsx
+<OffthreadVideo src={staticFile("video/demo-new.mp4")} ... />
+```
+
+The asset is missing, so rendering any frame that hits this video fails. This must be replaced with a code-native demo panel or a committed video asset before final render.
+
+### S12Outro
+
+File: `src/compositions/blackhole-pv/scenes/S12Outro.tsx`
+
+Status: implemented.
+
+It renders the final brand/CTA screen and uses `public/kosukuma/kosukuma-lying.png`.
+
+## Reusable components and assets
+
+Useful shared components exist under `src/compositions/blackhole-pv/components`:
+
+- `BlackHole`
+- `TextAbsorption`
+- `SweepingBlackHole`
+- `AbsorptionPhysics`
+- `BrowserWindow`
+- `SceneShell`
+- `NotificationPopup`
+- `ParticleField`
+- `LineUI`
+- `EmailInbox`
+- `SceneDecorations`
+
+Mockup components exist under `src/compositions/blackhole-pv/components/mockups`:
+
+- `GoogleSearchMockup`
+- `YouTubeMockup`
+- `SlackMockup`
+- `NewsMockup`
+- `LineMockup`
+- `NotificationOverlayMockup`
+- `CookieBannersMockup`
+- `SpamInboxMockup`
+- `TosMockup`
+
+Public visual assets exist under:
+
+- `public/fonts/axis-std.otf`
+- `public/kosukuma`
+- `public/mockups`
+
+No video assets exist.
+
+## Main blockers
+
+1. `npx tsc --noEmit` fails on `S10Mother.tsx`.
+2. `S11Climax` cannot render because `public/video/demo-new.mp4` is missing.
+3. `BlackHolePV` duration is 2730 frames while scheduled scenes end at 1890.
+4. Four scenes are still placeholders: `S01ColdOpen`, `S04Google`, `S05BeforeAfter`, `S07YouTube`, `S09GameGrowth`.
+5. There is no `typecheck` npm script, despite typecheck being required repeatedly during implementation.
+6. Rendering stills is slow because each command bundles/copies the project; final verification should use focused representative stills plus a final render, not excessive full-render loops.
+
+## Quality bar for completion
+
+The finished state should satisfy:
+
+- `npx tsc --noEmit` exits `0`.
+- `npx remotion compositions src/index.ts` lists `BlackHolePV`.
+- No visible `実機映像を差し替え予定` or placeholder text remains in `BlackHolePV`.
+- `BlackHolePV` duration equals the actual scheduled scene duration, unless an intentional new tail is added.
+- Representative stills from every scene render without missing asset errors.
+- A final render command for `BlackHolePV` completes successfully.
+- Remotion Studio can be opened locally for playback.

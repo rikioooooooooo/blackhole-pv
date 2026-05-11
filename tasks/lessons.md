@@ -1,0 +1,6 @@
+# Lessons
+
+- When a PV plan includes explicit footage direction, do not replace real-footage scenes with code-native mockups unless the user explicitly approves that fallback. Treat missing footage as an asset blocker or placeholder requirement, not as permission to redesign the scene.
+- When the user says footage will be re-shot later, implement real-footage sections as shot-direction placeholders that explain the ideal footage. Do not block on absent assets and do not create mock footage substitutes.
+- 計画書や注釈対象のドキュメントは、ユーザーが読める言語で書く。ユーザーが日本語で進めている場合、plan.md / todo.md は日本語を基本にする。
+- このリポジトリでは、一区切りの変更が完了したら GitHub に commit / push する。push できない場合は認証などの理由を明示する。
