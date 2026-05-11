@@ -248,7 +248,7 @@ const Caption: React.FC<{
 				zIndex: 8,
 			}}
 		>
-			消せない言葉も、ある。
+			消したくない言葉も、ある。
 		</div>
 	);
 };

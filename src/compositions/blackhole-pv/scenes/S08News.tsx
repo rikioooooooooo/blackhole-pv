@@ -14,10 +14,10 @@ import {usePvCurrentFrame as useCurrentFrame, usePvVideoConfig as useVideoConfig
 const ink = "#15120f";
 const red = "#D83A34";
 const blue = "#1D5FD1";
-const FEATURE_LEFT = 1010;
+const FEATURE_LEFT = 1014;
 const FEATURE_TOP = 238;
-const FEATURE_WIDTH = 690;
-const FEATURE_ROW_GAP = 108;
+const FEATURE_WIDTH = 780;
+const FEATURE_ROW_GAP = 112;
 
 const clamp = {
 	extrapolateLeft: "clamp" as const,
@@ -60,12 +60,12 @@ const safeRange = (values: number[]) => {
 };
 
 const getBhPosition = (frame: number) => {
-	const left = FEATURE_LEFT + 96;
-	const right = FEATURE_LEFT + FEATURE_WIDTH + 56;
+	const left = FEATURE_LEFT + 88;
+	const right = FEATURE_LEFT + FEATURE_WIDTH - 18;
 	const rows = headlines.map((item, index) => ({
 		start: item.start,
 		end: item.start + 16,
-		y: FEATURE_TOP + 64 + index * FEATURE_ROW_GAP,
+		y: FEATURE_TOP + 54 + index * FEATURE_ROW_GAP,
 	}));
 
 	if (frame < rows[0].start) {
@@ -215,13 +215,13 @@ export const S8News: React.FC = () => {
 				style={{
 					position: "absolute",
 					left: FEATURE_LEFT - 22,
-					top: FEATURE_TOP - 34,
-					width: FEATURE_WIDTH + 70,
-					height: 516,
-					borderRadius: 28,
-					background: "rgba(250,248,243,0.94)",
-					boxShadow: "0 34px 100px rgba(18,22,32,0.16)",
-					border: "1px solid rgba(21,18,15,0.08)",
+					top: FEATURE_TOP - 18,
+					width: FEATURE_WIDTH + 28,
+					height: 470,
+					borderRadius: 18,
+					background: "rgba(250,248,243,0.72)",
+					boxShadow: "0 18px 54px rgba(18,22,32,0.08)",
+					border: "1px solid rgba(21,18,15,0.05)",
 					zIndex: 12,
 				}}
 			/>
@@ -229,7 +229,7 @@ export const S8News: React.FC = () => {
 				style={{
 					position: "absolute",
 					left: FEATURE_LEFT,
-					top: FEATURE_TOP - 4,
+					top: FEATURE_TOP + 6,
 					zIndex: 18,
 					fontFamily: FONTS.ui,
 					fontSize: 13,
@@ -246,10 +246,13 @@ export const S8News: React.FC = () => {
 					style={{
 						position: "absolute",
 						left: FEATURE_LEFT,
-						top: FEATURE_TOP + 34 + index * FEATURE_ROW_GAP,
+						top: FEATURE_TOP + 26 + index * FEATURE_ROW_GAP,
 						width: FEATURE_WIDTH,
-						height: 78,
+						height: 82,
 						zIndex: 18,
+						borderRadius: 14,
+						background: "rgba(255,255,255,0.52)",
+						paddingLeft: 0,
 						borderTop:
 							index === 0 ? "none" : "1px solid rgba(21,18,15,0.12)",
 					}}

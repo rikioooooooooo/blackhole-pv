@@ -10,7 +10,6 @@ import S07YouTube from "./scenes/S07YouTube";
 import S08News from "./scenes/S08News";
 import S09GameGrowth from "./scenes/S09GameGrowth";
 import S10Mother from "./scenes/S10Mother";
-import S11Climax from "./scenes/S11Climax";
 import S12Outro from "./scenes/S12Outro";
 import {PvTimingProvider} from "./timing";
 
@@ -26,12 +25,11 @@ const SCENES = [
   { key: "S03", seconds: 6, component: S03Slack },
   { key: "S04", seconds: 5, component: S04Google },
   { key: "S05", seconds: 5, component: S05BeforeAfter },
-  { key: "S06", seconds: 4, component: S06Notification },
+  { key: "S06", seconds: 6, component: S06Notification },
   { key: "S07", seconds: 5, component: S07YouTube },
   { key: "S08", seconds: 4, component: S08News },
   { key: "S09", seconds: 6, component: S09GameGrowth },
   { key: "S10", seconds: 7, component: S10Mother },
-  { key: "S11", seconds: 6, component: S11Climax },
   { key: "S12", seconds: 6, component: S12Outro },
 ];
 

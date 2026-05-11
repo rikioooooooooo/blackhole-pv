@@ -228,12 +228,12 @@ export const S12Outro = () => {
 
 	const layoutScale = Math.min(width / 1920, height / 1080);
 	const safeScale = Math.max(0.52, layoutScale);
-	const holeSize = Math.round(132 * safeScale);
-	const framePadding = Math.max(32, Math.round(60 * safeScale));
-	const contentWidth = Math.min(900, Math.max(300, width - framePadding * 2));
+	const holeSize = Math.round(170 * safeScale);
+	const framePadding = Math.max(24, Math.round(42 * safeScale));
+	const contentWidth = Math.min(1180, Math.max(360, width - framePadding * 2));
 	const contentHeight = Math.max(360, height - framePadding * 2);
-	const mascotWidth = 120;
-	const verticalGap = Math.max(14, Math.round(30 * safeScale));
+	const mascotWidth = Math.round(190 * safeScale);
+	const verticalGap = Math.max(16, Math.round(36 * safeScale));
 
 	const cameraY = interpolate(
 		frame,
@@ -368,10 +368,10 @@ export const S12Outro = () => {
 
 	const titleStyle: CSSProperties = {
 		fontFamily: FONTS.display,
-		fontSize: Math.round(92 * safeScale),
+		fontSize: Math.round(118 * safeScale),
 		lineHeight: 1,
 		fontWeight: 500,
-		letterSpacing: "-0.052em",
+		letterSpacing: "0",
 		color: DEEP_INK,
 		opacity: titleOpacity,
 		transform: `translateY(${titleY}px) scale(${titleScale})`,
@@ -383,8 +383,8 @@ export const S12Outro = () => {
 	const buttonWidth = Math.min(
 		contentWidth,
 		Math.min(
-			Math.max(360, contentWidth - 40),
-			Math.max(430, 620 * safeScale),
+			Math.max(480, contentWidth - 20),
+			Math.max(560, 760 * safeScale),
 		),
 	);
 
@@ -471,10 +471,10 @@ export const S12Outro = () => {
 						<div
 							style={{
 								fontFamily: FONTS.japanese,
-								fontSize: Math.round(29 * safeScale),
-								fontWeight: 700,
-								letterSpacing: "0.005em",
-								lineHeight: 1.5,
+								fontSize: Math.round(44 * safeScale),
+								fontWeight: 900,
+								letterSpacing: "0",
+								lineHeight: 1.3,
 								color: "rgba(17,16,15,0.94)",
 								opacity: subtitleOpacity,
 								transform: `translateY(${subtitleY}px) scale(${subtitleScale})`,
@@ -484,10 +484,7 @@ export const S12Outro = () => {
 							}}
 						>
 							<div style={{ whiteSpace: "nowrap" }}>
-								インターネットの文字を、
-							</div>
-							<div style={{ whiteSpace: "nowrap" }}>
-								ブラックホールで吸い込みませんか？
+								嫌なこと、全部吸いこんじゃおう。
 							</div>
 						</div>
 					</div>
@@ -509,7 +506,7 @@ export const S12Outro = () => {
 					>
 						<div
 							style={{
-								minHeight: Math.round(78 * safeScale),
+								minHeight: Math.round(96 * safeScale),
 								width: buttonWidth,
 								boxSizing: "border-box",
 								borderRadius: 999,
@@ -540,7 +537,7 @@ export const S12Outro = () => {
 								<div
 									style={{
 										fontFamily: FONTS.ui,
-										fontSize: Math.round(13 * safeScale),
+										fontSize: Math.round(15 * safeScale),
 										fontWeight: 800,
 										letterSpacing: "0.12em",
 										textTransform: "uppercase",
@@ -555,7 +552,7 @@ export const S12Outro = () => {
 									style={{
 										marginTop: Math.round(5 * safeScale),
 										fontFamily: FONTS.japanese,
-										fontSize: Math.round(22 * safeScale),
+										fontSize: Math.round(28 * safeScale),
 										fontWeight: 800,
 										letterSpacing: "-0.02em",
 										color: DEEP_INK,

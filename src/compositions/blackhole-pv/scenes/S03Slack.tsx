@@ -27,7 +27,6 @@ const springPreset =
 const bg = "#F5F0E8";
 const ink = palette.ink ?? palette.black ?? "#171717";
 const purple = palette.purple ?? "#4A154B";
-const orange = palette.orange ?? "#FFB86B";
 
 const easeOutSoft = Easing.bezier(0.16, 1, 0.3, 1);
 const easeInOutSmooth = Easing.bezier(0.65, 0, 0.35, 1);
@@ -448,21 +447,6 @@ export const S2Slack: React.FC = () => {
 		}
 	);
 
-	const statusProgress = spring({
-		frame: frame - 166,
-		fps,
-		config: textSpring,
-	});
-
-	const statusOpacity = interpolate(statusProgress, makeRange([0, 1]), [0, 1], {
-		extrapolateLeft: "clamp",
-		extrapolateRight: "clamp",
-	});
-	const statusY = interpolate(statusProgress, makeRange([0, 1]), [8 * s, 0], {
-		extrapolateLeft: "clamp",
-		extrapolateRight: "clamp",
-	});
-
 	const messageFontSize = 29 * s;
 
 	const rootStyle: React.CSSProperties = {
@@ -710,45 +694,6 @@ export const S2Slack: React.FC = () => {
 								Direct message
 							</div>
 
-							{frame >= 166 && statusOpacity > 0.04 ? (
-								<div
-									style={{
-										position: "absolute",
-										right: 42 * s,
-										top: 20 * s,
-										height: 46 * s,
-										padding: `0 ${22 * s}px`,
-										borderRadius: 999,
-										background: "rgba(10,5,8,0.94)",
-										color: "white",
-										display: "flex",
-										alignItems: "center",
-										gap: 10 * s,
-										fontFamily: japaneseFont,
-										fontSize: 17 * s,
-										fontWeight: 800,
-										opacity: statusOpacity,
-										transform: `translateY(${statusY}px)`,
-										boxShadow:
-											"0 14px 34px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.16)",
-										willChange: "opacity, transform",
-										whiteSpace: "nowrap",
-										zIndex: 90,
-									}}
-								>
-									<span
-										style={{
-											width: 9 * s,
-											height: 9 * s,
-											borderRadius: "50%",
-											background: orange,
-											boxShadow: `0 0 ${14 * s}px ${orange}`,
-											flexShrink: 0,
-										}}
-									/>
-									3件のメッセージを吸い込みました
-								</div>
-							) : null}
 						</div>
 
 						<div

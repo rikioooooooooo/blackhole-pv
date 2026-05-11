@@ -53,15 +53,23 @@ type Target = {
 
 const targets: Target[] = [
 	{kind: "text", label: "見たくない言葉", start: 8, left: 230, top: 214, width: 410, height: 118, rotate: -2, boost: 0.08},
-	{kind: "chip", label: "未読 128", start: 22, left: 764, top: 148, width: 206, height: 68, rotate: 3, boost: 0.07},
-	{kind: "image", label: "IMAGE", start: 36, left: 1240, top: 180, width: 282, height: 212, rotate: 2, boost: 0.1},
-	{kind: "notification", label: "通知", start: 50, left: 1424, top: 438, width: 312, height: 94, rotate: -3, boost: 0.09},
-	{kind: "banner", label: "情報量の多いバナー", start: 64, left: 202, top: 562, width: 550, height: 118, rotate: 2, boost: 0.12},
-	{kind: "comment", label: "コメントが流れる", start: 78, left: 884, top: 784, width: 420, height: 92, rotate: -1, boost: 0.09},
-	{kind: "video", label: "VIDEO", start: 92, left: 1294, top: 650, width: 394, height: 222, rotate: 2, boost: 0.14},
-	{kind: "stat", label: "数字・通知・広告", start: 106, left: 326, top: 800, width: 324, height: 96, rotate: -3, boost: 0.1},
-	{kind: "page", label: "ページ全体", start: 122, left: 606, top: 260, width: 708, height: 500, rotate: 0, boost: 0.2},
-	{kind: "noise", label: "画面のノイズ全部", start: 140, left: 0, top: 0, width: 1920, height: 1080, rotate: 0, boost: 0.28},
+	{kind: "chip", label: "未読 128", start: 18, left: 764, top: 148, width: 206, height: 68, rotate: 3, boost: 0.055},
+	{kind: "stat", label: "数字・通知・広告", start: 26, left: 326, top: 800, width: 324, height: 96, rotate: -3, boost: 0.06},
+	{kind: "image", label: "IMAGE", start: 34, left: 1240, top: 180, width: 282, height: 212, rotate: 2, boost: 0.07},
+	{kind: "notification", label: "通知", start: 42, left: 1424, top: 438, width: 312, height: 94, rotate: -3, boost: 0.06},
+	{kind: "comment", label: "コメントが流れる", start: 50, left: 884, top: 784, width: 420, height: 92, rotate: -1, boost: 0.055},
+	{kind: "chip", label: "広告", start: 58, left: 1070, top: 106, width: 166, height: 62, rotate: -4, boost: 0.045},
+	{kind: "text", label: "検索結果", start: 66, left: 178, top: 404, width: 330, height: 96, rotate: 2, boost: 0.055},
+	{kind: "banner", label: "情報量の多いバナー", start: 74, left: 202, top: 562, width: 550, height: 118, rotate: 2, boost: 0.08},
+	{kind: "notification", label: "DM", start: 82, left: 1476, top: 304, width: 260, height: 82, rotate: 4, boost: 0.05},
+	{kind: "stat", label: "分析カード", start: 90, left: 696, top: 850, width: 300, height: 86, rotate: 2, boost: 0.055},
+	{kind: "video", label: "VIDEO", start: 98, left: 1294, top: 650, width: 394, height: 222, rotate: 2, boost: 0.09},
+	{kind: "image", label: "THUMB", start: 106, left: 520, top: 112, width: 260, height: 178, rotate: -3, boost: 0.055},
+	{kind: "comment", label: "レビュー欄", start: 114, left: 1068, top: 492, width: 380, height: 88, rotate: -2, boost: 0.055},
+	{kind: "chip", label: "POPUP", start: 122, left: 80, top: 744, width: 190, height: 68, rotate: 5, boost: 0.045},
+	{kind: "text", label: "ニュース見出し", start: 130, left: 1460, top: 836, width: 330, height: 92, rotate: -4, boost: 0.06},
+	{kind: "page", label: "ページ全体", start: 138, left: 606, top: 260, width: 708, height: 500, rotate: 0, boost: 0.16},
+	{kind: "noise", label: "画面のノイズ全部", start: 158, left: 0, top: 0, width: 1920, height: 1080, rotate: 0, boost: 0.24},
 ];
 
 const absorbProgress = (frame: number, start: number, duration = 14) => {
@@ -358,7 +366,7 @@ export const S09GameGrowth: React.FC = () => {
 	const totalGrowth = targets.reduce((sum, target) => {
 		return sum + absorbProgress(frame, target.start, target.kind === "noise" ? 24 : 14) * target.boost;
 	}, 0);
-	const finalBloom = interpolate(frame, [142, 164, 180], [0, 0.42, 1], {
+	const finalBloom = interpolate(frame, [156, 172, 180], [0, 0.44, 1], {
 		...clamp,
 		easing: easeInOutSmooth,
 	});
@@ -372,12 +380,12 @@ export const S09GameGrowth: React.FC = () => {
 		...clamp,
 		easing: easeInOutSmooth,
 	});
-	const copyOpacity = interpolate(frame, [14, 34, 124, 154], [0, 1, 1, 0], {
+	const copyOpacity = interpolate(frame, [14, 34, 128, 154], [0, 1, 1, 0], {
 		...clamp,
 		easing: easeOutSoft,
 	});
 	const copyY = interpolate(copyIn, [0, 1], [16, 0], clamp);
-	const blackout = interpolate(frame, [164, 180], [0, 0.9], {...clamp, easing: easeInOutSmooth});
+	const blackout = interpolate(frame, [172, 180], [0, 0.9], {...clamp, easing: easeInOutSmooth});
 
 	return (
 		<AbsoluteFill

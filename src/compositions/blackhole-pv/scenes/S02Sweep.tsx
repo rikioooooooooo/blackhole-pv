@@ -100,13 +100,9 @@ const S1Sweep: React.FC = () => {
 	const palette = {
 		background: "#F5F0E8",
 		ink: (COLORS as any)?.ink ?? "#1D1B18",
-		caption: "#1D1B18",
 	};
 
 	const japaneseFont = (FONTS as any)?.japanese ?? "'Axis Std', sans-serif";
-	const uiFont =
-		(FONTS as any)?.ui ??
-		'-apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif';
 
 	const mainText =
 		"インターネットの文字を、ブラックホールで吸い込みませんか？";
@@ -227,25 +223,6 @@ const S1Sweep: React.FC = () => {
 	const charW = fontSize * 1.0;
 	const titleClipRight = Math.floor(wipeInset / charW) * charW;
 
-	const captionOpacityRaw = interpolate(
-		frame,
-		strictRange([126, 138, 166, 176]),
-		[0, 1, 1, 0],
-		{
-			easing: easeOutSoft,
-			extrapolateLeft: "clamp",
-			extrapolateRight: "clamp",
-		}
-	);
-
-	const captionOpacity = captionOpacityRaw < 0.08 ? 0 : captionOpacityRaw;
-
-	const captionY = interpolate(frame, strictRange([126, 138]), [12, 0], {
-		easing: easeOutSoft,
-		extrapolateLeft: "clamp",
-		extrapolateRight: "clamp",
-	});
-
 	return (
 		<AbsoluteFill
 			style={{
@@ -349,29 +326,6 @@ const S1Sweep: React.FC = () => {
 						frame={frame}
 						coreColor="#0A0508"
 					/>
-				</div>
-			)}
-
-			{captionOpacity > 0 && (
-				<div
-					style={{
-						position: "absolute",
-						left: textLeft,
-						top: textTop + titleHeight + 62,
-						width: textWidth,
-						textAlign: "center",
-						fontFamily: uiFont,
-						fontSize: 34,
-						lineHeight: 1.45,
-						fontWeight: 800,
-						letterSpacing: "0.01em",
-						color: palette.caption,
-						opacity: captionOpacity,
-						transform: `translateY(${captionY}px)`,
-						zIndex: 5,
-					}}
-				>
-					見たくない言葉だけ、遊ぶように消していく。
 				</div>
 			)}
 

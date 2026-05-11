@@ -263,8 +263,8 @@ const NotificationCard: React.FC<{
 	const completeFrame = item.absorb + SWEEP_FRAMES;
 	const settleOpacity = interpolate(
 		frame,
-		frameRange(completeFrame + 4, completeFrame + 18),
-		[1, 0.55],
+		frameRange(completeFrame + 2, completeFrame + 14),
+		[1, 0],
 		{
 			extrapolateLeft: "clamp",
 			extrapolateRight: "clamp",
@@ -811,27 +811,6 @@ export const S06Notification: React.FC = () => {
 	const entryScale = Math.max(0, Math.min(1.1, bhEnterRaw));
 	const bhScale = entryScale + absorbPulse;
 
-	const absorbedCount = notifications.filter(
-		(n) => frame >= n.absorb + SWEEP_FRAMES,
-	).length;
-
-	const lastEnd = notifications[notifications.length - 1].absorb + SWEEP_FRAMES;
-	const toastStart = lastEnd + 5;
-	const toastEnd = toastStart + 24;
-	const showToast = frame >= toastStart && frame < toastEnd + 10;
-	const toastOpacity = showToast
-		? interpolate(
-				frame,
-				frameRange(toastStart, toastStart + 8, toastEnd, toastEnd + 10),
-				[0, 1, 1, 0],
-				{
-					extrapolateLeft: "clamp",
-					extrapolateRight: "clamp",
-					easing: easeInOutSmooth,
-				},
-			)
-		: 0;
-
 	return (
 		<AbsoluteFill
 			style={{
@@ -892,35 +871,6 @@ export const S06Notification: React.FC = () => {
 				opacity={bhOpacity}
 				frame={frame}
 			/>
-
-			{showToast && toastOpacity > 0.04 ? (
-				<div
-					style={{
-						position: "absolute",
-						right: 84,
-						top: 56,
-						padding: "14px 20px",
-						borderRadius: 999,
-						background: "rgba(255,253,248,0.96)",
-						border: "1px solid rgba(10,5,8,0.1)",
-						boxShadow: "0 18px 46px rgba(50,44,32,0.16)",
-						fontFamily: JAPANESE_FONT,
-						fontSize: 16,
-						fontWeight: 820,
-						letterSpacing: -0.2,
-						color: "#171412",
-						zIndex: 100,
-						opacity: toastOpacity,
-						transform: `translateY(${interpolate(toastOpacity, [0, 1], [-8, 0], {
-							extrapolateLeft: "clamp",
-							extrapolateRight: "clamp",
-							easing: easeOutSoft,
-						})}px)`,
-					}}
-				>
-					{absorbedCount}件の通知文を吸い込みました
-				</div>
-			) : null}
 
 			<div
 				style={{
