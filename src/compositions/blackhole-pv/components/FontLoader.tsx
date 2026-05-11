@@ -14,12 +14,12 @@ loadPlayfairDisplay("normal", {
 });
 
 /**
- * FontLoader -- Axis Std @font-face declaration via inline style tag.
+ * FontLoader -- axis-std.otf @font-face declaration via inline style tag.
  * Mount once at the top of each scene that uses Japanese text.
  */
 export const FontLoader: React.FC = () => {
   const axisFontUrl = staticFile("fonts/axis-std.otf");
-  const [handle] = React.useState(() => delayRender("Loading Axis Std"));
+  const [handle] = React.useState(() => delayRender("Loading axis-std.otf"));
 
   React.useEffect(() => {
     let active = true;
@@ -30,7 +30,7 @@ export const FontLoader: React.FC = () => {
     }
 
     const fontFace = new FontFace(
-      "Axis Std",
+      "AxisStd-Regular",
       `url("${axisFontUrl}") format("opentype")`,
       {
         style: "normal",
@@ -65,11 +65,15 @@ export const FontLoader: React.FC = () => {
       dangerouslySetInnerHTML={{
         __html: `
           @font-face {
-            font-family: 'Axis Std';
+            font-family: 'AxisStd-Regular';
             src: url('${axisFontUrl}') format('opentype');
             font-weight: 100 900;
             font-style: normal;
             font-display: block;
+          }
+
+          * {
+            font-synthesis: none;
           }
         `,
       }}
@@ -77,4 +81,4 @@ export const FontLoader: React.FC = () => {
   );
 };
 
-export const AXIS_FONT = "'Axis Std', sans-serif";
+export const AXIS_FONT = "'AxisStd-Regular', sans-serif";

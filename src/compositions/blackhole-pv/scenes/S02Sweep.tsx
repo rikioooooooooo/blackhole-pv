@@ -102,7 +102,7 @@ const S1Sweep: React.FC = () => {
 		ink: (COLORS as any)?.ink ?? "#1D1B18",
 	};
 
-	const japaneseFont = (FONTS as any)?.japanese ?? "'Axis Std', sans-serif";
+	const japaneseFont = (FONTS as any)?.japanese ?? "'AxisStd-Regular', sans-serif";
 
 	const mainText =
 		"インターネットの文字を、ブラックホールで吸い込みませんか？";

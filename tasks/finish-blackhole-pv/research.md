@@ -414,3 +414,29 @@ The finished state should satisfy:
 - `Axis Std` は同梱OTFを `@font-face` と `FontFace` API の両方で登録し、`delayRender` / `continueRender` で読み込み完了まで待つ。
 - `Inter` と `Playfair Display` は `@remotion/google-fonts` のloaderで読み込み、英字UI/タイトルも書き出し時に固定されるようにした。
 - `FONTS.display` を実際のfont family名である `"Playfair Display"` に修正した。
+
+## 2026-05-11 render research: axis-std.otf direct use
+
+追加問題:
+
+- 再書き出し後もフォントが違って見える。
+- ユーザーは `axis-std.otf` をそのまま使うことを要求している。
+
+調査:
+
+- `public/fonts/axis-std.otf` の内部名は family `AXIS Std`、subfamily `R`、full name `AXIS Std R`、PostScript `AxisStd-Regular`。
+- OTF内のウェイトは Regular 相当で、太字ファイルは同梱されていない。
+- `font-family: 'Axis Std'` や 400 のみの `@font-face` だと、`font-weight: 700/900` を指定した日本語テキストが書き出しChromiumで別フォントへ逃げる可能性がある。
+
+対応方針:
+
+- 同梱OTFを `AxisStd-Regular` として直接登録する。
+- `font-weight: 100 900` の全範囲を同じ `axis-std.otf` に割り当て、太字指定でも別フォントへ逃げないようにする。
+- `font-synthesis: none` を全体に指定し、Chromiumの合成太字ではなくOTFそのもののアウトラインで描かせる。
+- MP4全体を書き出す前に、Remotion render path の still で S02/S08/S12 を確認する。
+
+対応結果:
+
+- S02/S08/S12 の still を `tasks/finish-blackhole-pv/font-check-axis-direct/` に書き出し、MP4と同じRemotion render pathで確認した。
+- `BlackHolePV60` を `out/blackhole-pv-60fps-ultra.mp4` に再書き出しした。
+- Compositionは `60fps`, `1920x1080`, `3540 frames`, `59.00 sec`。

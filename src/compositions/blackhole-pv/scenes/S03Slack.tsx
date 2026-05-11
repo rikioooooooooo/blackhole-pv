@@ -287,7 +287,7 @@ export const S2Slack: React.FC = () => {
 
 	const displayFont = fonts.display ?? "Inter, Arial, sans-serif";
 	const uiFont = fonts.ui ?? "Inter, Arial, sans-serif";
-	const japaneseFont = "'Axis Std', sans-serif";
+	const japaneseFont = "'AxisStd-Regular', sans-serif";
 
 	const panelProgress = spring({
 		frame,

@@ -822,3 +822,31 @@ npm run studio:pv
 - 確認still: `tasks/finish-blackhole-pv/font-check/s02-axis.png`。
 - 確認still: `tasks/finish-blackhole-pv/font-check/s12-outro.png`。
 - 再出力: `out/blackhole-pv-60fps-ultra.mp4`。
+
+## 2026-05-11 axis-std.otf 直接使用の再修正
+
+### 方針
+
+- `axis-std.otf` の内部PostScript名 `AxisStd-Regular` をそのまま使う。
+- 同梱OTFはRegular単体なので、`font-weight: 100 900` の要求すべてを同じファイルへ割り当てる。
+- `font-synthesis: none` で合成太字を止め、書き出しとレビューのフォント差をなくす。
+- 全動画を書き出す前に、Remotionのstill書き出しで代表シーンのフォントを確認する。
+
+### Todo
+
+- [x] `FontLoader` の Axis family を `AxisStd-Regular` に固定する。
+- [x] 日本語フォント参照を `AxisStd-Regular` に寄せる。
+- [x] Axis OTFを全ウェイト要求に割り当て、合成太字を無効化する。
+- [x] `npm run typecheck` を通す。
+- [x] S02/S08/S12 の render-path still を再作成して確認する。
+- [x] フォント確認後に超高画質MP4を書き出す。
+- [x] commit / push する。
+
+### Review
+
+- 確認still: `tasks/finish-blackhole-pv/font-check-axis-direct/s02-axis-direct.png`。
+- 確認still: `tasks/finish-blackhole-pv/font-check-axis-direct/s08-axis-direct.png`。
+- 確認still: `tasks/finish-blackhole-pv/font-check-axis-direct/s12-axis-direct.png`。
+- 再出力: `out/blackhole-pv-60fps-ultra.mp4`。
+- Composition確認: `BlackHolePV60`, `60fps`, `1920x1080`, `3540 frames`, `59.00 sec`。
+- 出力サイズ: 約32MB。
