@@ -3,6 +3,9 @@ dist/
 .remotion/
 .venv-imagegen/
 tmp/
+.env
+.env.local
+.env.*.local
 *.mp4
 *.mov
 public/video/

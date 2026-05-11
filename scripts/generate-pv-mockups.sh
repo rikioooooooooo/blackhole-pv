@@ -6,6 +6,30 @@ IMAGE_GEN="${CODEX_HOME:-$HOME/.codex}/skills/.system/imagegen/scripts/image_gen
 WINDOWS_CODEX_IMAGE_GEN="/mnt/c/Users/すのはら/.codex/skills/.system/imagegen/scripts/image_gen.py"
 VENV_DIR="$ROOT_DIR/.venv-imagegen"
 
+load_env_file() {
+  local file="$1"
+
+  if [ -f "$file" ]; then
+    set -a
+    # shellcheck disable=SC1090
+    source "$file"
+    set +a
+  fi
+}
+
+load_windows_openai_key() {
+  if [ -n "${OPENAI_API_KEY:-}" ] || ! command -v powershell.exe >/dev/null 2>&1; then
+    return
+  fi
+
+  local windows_key
+  windows_key="$(powershell.exe -NoProfile -Command '[Environment]::GetEnvironmentVariable("OPENAI_API_KEY","User")' 2>/dev/null | tr -d '\r' | tail -n 1)"
+
+  if [ -n "$windows_key" ]; then
+    export OPENAI_API_KEY="$windows_key"
+  fi
+}
+
 if [ ! -f "$IMAGE_GEN" ] && [ -f "$WINDOWS_CODEX_IMAGE_GEN" ]; then
   IMAGE_GEN="$WINDOWS_CODEX_IMAGE_GEN"
 fi
@@ -15,16 +39,26 @@ if [ ! -f "$IMAGE_GEN" ]; then
   exit 1
 fi
 
-if [ -z "${OPENAI_API_KEY:-}" ]; then
-  echo "OPENAI_API_KEY is not set. Set it before running gpt-image-2 generation." >&2
-  exit 1
-fi
+load_env_file "$ROOT_DIR/.env"
+load_env_file "$ROOT_DIR/.env.local"
+load_windows_openai_key
 
 if [ ! -x "$VENV_DIR/bin/python" ]; then
   python3 -m venv "$VENV_DIR"
 fi
 
-"$VENV_DIR/bin/python" -m pip install --upgrade pip openai
+if ! "$VENV_DIR/bin/python" -c "import openai" >/dev/null 2>&1; then
+  "$VENV_DIR/bin/python" -m pip install --quiet --upgrade pip openai
+fi
+
+if [ -z "${OPENAI_API_KEY:-}" ]; then
+  echo "OPENAI_API_KEY is not set." >&2
+  echo "Set it in one of these places, then rerun npm run generate:pv-mockups:" >&2
+  echo "  1. project .env.local: OPENAI_API_KEY=..." >&2
+  echo "  2. current shell: export OPENAI_API_KEY=..." >&2
+  echo "  3. Windows user environment variable OPENAI_API_KEY" >&2
+  exit 1
+fi
 
 mkdir -p "$ROOT_DIR/public/mockups/generated"
 

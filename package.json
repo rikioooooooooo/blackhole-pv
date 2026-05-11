@@ -9,6 +9,7 @@
     "render": "remotion render src/index.ts",
     "render:pv": "remotion render src/index.ts BlackHolePV out/blackhole-pv.mp4",
     "render:pv60": "remotion render src/index.ts BlackHolePV60 out/blackhole-pv-60fps.mp4",
+    "setup:imagegen": "bash scripts/setup-imagegen.sh",
     "generate:pv-mockups": "bash scripts/generate-pv-mockups.sh",
     "build": "remotion bundle src/index.ts",
     "typecheck": "tsc --noEmit"

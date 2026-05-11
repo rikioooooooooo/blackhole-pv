@@ -60,6 +60,8 @@
 - ただし現在の Codex セッションでは built-in の `image_gen` ツールが公開されていないため、今回の即時修正では CSS/既存素材で構造を整え、生成プロンプトを `tasks/finish-blackhole-pv/image-prompts.md` に残す。
 - CLI フォールバックとして `scripts/generate-pv-mockups.sh` を追加した。
 - `OPENAI_API_KEY` を設定して `npm run generate:pv-mockups` を実行すると、gpt-image-2 で S06/S08 のベース画像を生成して `public/mockups/generated/` に保存する。
+- `npm run setup:imagegen` で、プロジェクト内の `.venv-imagegen` に画像生成用 Python 環境と `openai` パッケージを準備する。
+- `generate:pv-mockups` は `.env.local` / `.env` / 現在の shell / Windows ユーザー環境変数の順に `OPENAI_API_KEY` を拾う。
 
 ## FPS 方針
 
@@ -532,6 +534,7 @@ npm run studio:pv
 - [ ] 生成画像を `public/mockups/generated/` に置き、Remotion で吸い込み演出だけを重ねる。
 - [x] `BlackHolePV60` を追加し、速度を維持したまま `60fps / 3780 frames` でレビューできるようにする。
 - [x] gpt-image-2 生成用の CLI スクリプト `npm run generate:pv-mockups` を追加する。
+- [x] `npm run setup:imagegen` で画像生成CLI依存をローカルにセットアップできるようにする。
 - [ ] `OPENAI_API_KEY` を設定して実際に gpt-image-2 生成を走らせる。
 - [ ] 生成済み画像を S06/S08 の背景ベースとして使い、Remotion は BH と文字消失だけを重ねる構成へ切り替える。
 
@@ -543,7 +546,9 @@ npm run studio:pv
 - 代表フレーム出力成功: `s01.png`, `s02.png`, `s04.png`, `s09.png`, `s11.png`, `s12.png`。
 - 最新フィードバック確認用に `s06-notification-updated.png` / `s08-news-updated.png` を追加出力済み。
 - 60fpsレビュー確認用に `s06-notification-60fps.png` を追加出力済み。
+- `npm run setup:imagegen` 成功。`.venv-imagegen` に `openai` パッケージ導入済み。
 - `npm run generate:pv-mockups` は `OPENAI_API_KEY` 未設定のため、画像生成前に停止することを確認済み。
+- Windows ユーザー環境変数にも `OPENAI_API_KEY` は未設定。
 - Remotion Studio 起動成功: `http://localhost:3001`。
 - フルレンダーは未実施。今回は「一回見てみたい」ため Studio 起動までを優先。
 
